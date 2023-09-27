@@ -1,0 +1,11 @@
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\bin\Debug\Z1_forms.exe.config
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\bin\Debug\Z1_forms.exe
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\bin\Debug\Z1_forms.pdb
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.csproj.AssemblyReference.cache
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.csproj.SuggestedBindingRedirects.cache
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.Properties.Resources.resources
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.csproj.GenerateResource.cache
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.exe
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.pdb
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.Form1.resources
