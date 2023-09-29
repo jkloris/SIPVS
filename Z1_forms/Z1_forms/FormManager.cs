@@ -10,9 +10,9 @@ namespace Z1_forms
 {
     public class FormManager
     {
-        public static void SaveData(POC_model data)
+        public static void SaveData(FormData data)
         {
-            Console.WriteLine(data.numInput + " " + data.boolInput + " " + data.textInput);
+            //Console.WriteLine(data.numInput + " " + data.boolInput + " " + data.textInput);
         }
     }
 }

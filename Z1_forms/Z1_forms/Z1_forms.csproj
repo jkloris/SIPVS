@@ -53,7 +53,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormManager.cs" />
-    <Compile Include="model\POC_model.cs" />
+    <Compile Include="model\Child.cs" />
+    <Compile Include="model\FormData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

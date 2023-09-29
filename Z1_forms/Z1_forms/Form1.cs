@@ -31,14 +31,43 @@ namespace Z1_forms
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            POC_model data = new POC_model();
-            //data.textInput = textBox1.Text;
-            data.boolInput = checkBox.Checked;
-            //data.numInput = numericUpDown1.Value;
-            //data.boolInput = textBox3.Text;
+            FormData data = new FormData();
+            data.name = textBoxFirstName.Text;
+            data.surname = textBoxLastName.Text;
+            data.age = numericUpDownAge.Value;
 
+            data.degreeAfter = textBoxDegreeAfterName.Text;
+            data.degreeBefore = textBoxDegreeBeforeName.Text;
+            data.maritalStatus = comboBoxMaritalStatus.Text;
+
+            data.streetName = textBoxStreet.Text;
+            data.houseNum = textBoxHouseNumber.Text;
+            data.postcode = textBoxPostalCode.Text;
+
+            data.city = textBoxCity.Text;
+            data.country = textBoxState.Text;
+
+            data.tax = checkBox.Checked;
+            data.date = dateTimePicker.Value;
+
+            data.kids = getChildren();
 
             FormManager.SaveData(data);
+        }
+
+        private List<Child> getChildren()
+        {
+            List<Child> children = new List<Child>();
+            string name;
+            NumericUpDown age;
+            for (int i = 1; i <= numericUpDownNumberOfChildren.Value; i++) {
+                name = Controls.Find("textboxChildName_" + i.ToString(), true).FirstOrDefault().Text;
+                age =  Controls.Find("numericUpDownChildAge_" + i.ToString(), true).FirstOrDefault() as NumericUpDown;
+                children.Add(new Child(name, age.Value));
+
+
+            }
+            return children;
         }
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
