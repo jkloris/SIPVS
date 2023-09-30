@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,16 @@ namespace Z1_forms
 {
     public partial class Form1 : Form
     {
-        
+        public String XML_file = String.Empty;
+
         public Form1()
         {
             InitializeComponent();
+        }
+
+        public void changeSize(int width, int height)
+        {
+            this.Size = new Size(width, height);
         }
 
         private void transformBtn_Click(object sender, EventArgs e)
@@ -24,10 +31,10 @@ namespace Z1_forms
             MessageBox.Show("Transform Clicked!");
         }
 
-       /* private void checkBtn_Click(object sender, EventArgs e)
+        private void checkBtn_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(textBox.Text);
-        }*/
+            FormManager.ValidateData(this.XML_file);
+        }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
@@ -52,7 +59,7 @@ namespace Z1_forms
 
             data.kids = getChildren();
 
-            FormManager.SaveData(data);
+            this.XML_file = FormManager.SaveData(data);
         }
 
         private List<Child> getChildren()

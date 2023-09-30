@@ -11,6 +11,8 @@ namespace Z1_forms.model
         public string fullname;
         public decimal age;
 
+        public Child() { }
+
         public Child(string fullname, decimal age)
         {
             this.fullname = fullname;

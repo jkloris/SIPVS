@@ -16,7 +16,9 @@ namespace Z1_forms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            var form = new Form1();
+            form.changeSize(650, 1000);
+            Application.Run(form);
         }
     }
 }

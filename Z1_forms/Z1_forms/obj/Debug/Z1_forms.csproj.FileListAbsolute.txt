@@ -20,3 +20,13 @@ C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1
 C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.Properties.Resources.resources
 C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.csproj.GenerateResource.cache
 C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\Z1_forms\Z1_forms\obj\Debug\Z1_forms.csproj.CoreCompileInputs.cache
+D:\FIIT\SIPVS\Zadania\Zadanie1\Z1_forms\Z1_forms\obj\Debug\Z1_forms.exe
+D:\FIIT\SIPVS\Zadania\Zadanie1\Z1_forms\Z1_forms\obj\Debug\Z1_forms.pdb
+D:\FIIT\SIPVS\Zadania\Zadanie1\Z1_forms\Z1_forms\bin\Debug\Z1_forms.exe.config
+D:\FIIT\SIPVS\Zadania\Zadanie1\Z1_forms\Z1_forms\bin\Debug\Z1_forms.exe
+D:\FIIT\SIPVS\Zadania\Zadanie1\Z1_forms\Z1_forms\bin\Debug\Z1_forms.pdb
+D:\FIIT\SIPVS\Zadania\Zadanie1\Z1_forms\Z1_forms\obj\Debug\Z1_forms.csproj.AssemblyReference.cache
+D:\FIIT\SIPVS\Zadania\Zadanie1\Z1_forms\Z1_forms\obj\Debug\Z1_forms.Form1.resources
+D:\FIIT\SIPVS\Zadania\Zadanie1\Z1_forms\Z1_forms\obj\Debug\Z1_forms.Properties.Resources.resources
+D:\FIIT\SIPVS\Zadania\Zadanie1\Z1_forms\Z1_forms\obj\Debug\Z1_forms.csproj.GenerateResource.cache
+D:\FIIT\SIPVS\Zadania\Zadanie1\Z1_forms\Z1_forms\obj\Debug\Z1_forms.csproj.CoreCompileInputs.cache

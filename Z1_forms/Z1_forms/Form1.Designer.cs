@@ -98,7 +98,7 @@ namespace Z1_forms
             this.checkBtn.TabIndex = 1;
             this.checkBtn.Text = "Over";
             this.checkBtn.UseVisualStyleBackColor = true;
-            //this.checkBtn.Click += new System.EventHandler(this.checkBtn_Click);
+            this.checkBtn.Click += new System.EventHandler(this.checkBtn_Click);
             // 
             // transformBtn
             // 

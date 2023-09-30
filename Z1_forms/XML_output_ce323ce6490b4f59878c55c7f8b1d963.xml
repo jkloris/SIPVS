@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FormData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <name>Kristina</name>
+  <surname>Okasova</surname>
+  <age>23</age>
+  <degreeAfter />
+  <degreeBefore>Bc.</degreeBefore>
+  <maritalStatus>slobodný/slobodná</maritalStatus>
+  <streetName>Hlavna</streetName>
+  <houseNum>55</houseNum>
+  <city>Nova Lehota</city>
+  <postcode>45354</postcode>
+  <country>Slovensko</country>
+  <tax>true</tax>
+  <kids>
+    <Child>
+      <fullname>Juraj Okasa</fullname>
+      <age>10</age>
+    </Child>
+  </kids>
+  <date>2023-10-01T01:03:23.7272836+02:00</date>
+</FormData>
