@@ -31,7 +31,7 @@ namespace Z1_forms
             
             try
             {
-                FormManager.TransformToHtml(XML_file, "../../../xsltest.xsl");
+                FormManager.TransformToHtml(XML_file, "../../../xslModel.xsl");
                 MessageBox.Show("Formulár bol transformovaný do HTML");
             }
             catch (Exception exception)

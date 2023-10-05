@@ -90,7 +90,7 @@ namespace Z1_forms
 
                 // Print or use the transformed HTML as needed
                 Console.WriteLine(transformedHtml);
-                File.WriteAllText("../../output.html", transformedHtml);
+                File.WriteAllText("../../../output.html", transformedHtml);
             }
         }
 
