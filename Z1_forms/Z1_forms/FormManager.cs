@@ -11,6 +11,7 @@ using System.Xml.Schema;
 using System.Xml;
 using System.Xml.Serialization;
 using Z1_forms.model;
+using System.Xml.Xsl;
 
 namespace Z1_forms
 {
@@ -34,11 +35,29 @@ namespace Z1_forms
         //source: https://www.c-sharpcorner.com/article/how-to-validate-xml-using-xsd-in-c-sharp/
         public static void ValidateData(String file)
         {
+            if (file == "")
+            {
+                MessageBox.Show("Nebol nájdený uložený súbor!");
+                return;
+            }
+
             XmlSchemaSet schema = new XmlSchemaSet();
             schema.Add("", "../../XML_scheme.xsd");
             XmlReader rd = XmlReader.Create(file);
             XDocument doc = XDocument.Load(rd);
-            doc.Validate(schema, ValidationEventHandler);
+            var success = true;
+            doc.Validate(schema, (sender, e) =>
+            {
+                Console.WriteLine(e.Message);
+                success = false;
+                ValidationEventHandler(sender, e);
+            }, true);
+
+            if (success)
+            {
+                MessageBox.Show("Údaje spĺňajú zadanú štruktúru");
+            }
+
         }
 
         //source: https://www.c-sharpcorner.com/article/how-to-validate-xml-using-xsd-in-c-sharp/
@@ -51,9 +70,30 @@ namespace Z1_forms
                 {
                     MessageBox.Show(e.Message); //throw new Exception(e.Message);
                 }
-                else MessageBox.Show("Údaje spĺňajú zadanú štruktúru");
             }
-            else MessageBox.Show("Údaje spĺňajú zadanú štruktúru");
         }
+
+        public static void TransformToHtml(string xmlPath, string xslPath)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(xmlPath); 
+            XslCompiledTransform xslTransform = new XslCompiledTransform();
+            xslTransform.Load(xslPath);
+            
+            using (StringWriter writer = new StringWriter())
+            {
+                // Perform the transformation
+                xslTransform.Transform(xmlDoc, null, writer);
+
+                // Get the transformed HTML as a string
+                string transformedHtml = writer.ToString();
+
+                // Print or use the transformed HTML as needed
+                Console.WriteLine(transformedHtml);
+                File.WriteAllText("../../output.html", transformedHtml);
+            }
+        }
+
+        
     }
 }

@@ -28,7 +28,17 @@ namespace Z1_forms
 
         private void transformBtn_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Transform Clicked!");
+            
+            try
+            {
+                FormManager.TransformToHtml(XML_file, "../../../xsltest.xsl");
+                MessageBox.Show("Formulár bol transformovaný do HTML");
+            }
+            catch (Exception exception)
+            {
+                //MessageBox.Show(exception.ToString());
+                MessageBox.Show("Najskôr vyplňte a uložte formular prosím.");
+            }
         }
 
         private void checkBtn_Click(object sender, EventArgs e)

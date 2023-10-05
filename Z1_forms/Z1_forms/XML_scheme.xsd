@@ -46,7 +46,7 @@
 				<xsd:element name="tax" type="xsd:boolean" />
 				<xsd:element name="kids">
 					<xsd:complexType>
-						<xsd:sequence>
+						<xsd:sequence minOccurs="0" maxOccurs="unbounded">
 							<xsd:element name="Child">
 								<xsd:complexType>
 									<xsd:sequence>
