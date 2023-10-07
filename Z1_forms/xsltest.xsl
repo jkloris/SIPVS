@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+				              xmlns:ms="urn:schemas-microsoft-com:xslt">
 
   <!-- Match the root element of your XML -->
   <xsl:template match="FormData">
@@ -159,7 +160,7 @@
             </div>
         </xsl:for-each>
         
-        <p>Dňa: <xsl:value-of select="date" /></p>
+        <p>Dňa: <xsl:value-of select="ms:format-date(date, 'dd. MM. yyyy')" /></p>
       </body>
     </html>
   </xsl:template>

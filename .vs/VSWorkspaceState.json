@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Z1_forms"
+    "\\Z1_forms",
+    "\\Z1_forms\\Z1_forms",
+    "\\Z1_forms\\Z1_forms\\model",
+    "\\Z1_forms\\Z1_forms\\Properties"
   ],
   "SelectedNode": "\\Z1_forms\\Z1_forms.sln",
   "PreviewInSolutionExplorer": false
