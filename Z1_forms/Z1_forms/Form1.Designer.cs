@@ -75,6 +75,7 @@ namespace Z1_forms
             System.Windows.Forms.NumericUpDown numericUpDownChildAge = new System.Windows.Forms.NumericUpDown();
             this.labelDate = new System.Windows.Forms.Label();
             this.dateTimePicker = new DateTimePicker();
+            this.labelChildrenNamesValidation = new System.Windows.Forms.Label();
             
             
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAge)).BeginInit();
@@ -225,6 +226,7 @@ namespace Z1_forms
             this.comboBoxMaritalStatus.Name = "comboBoxMaritalStatus";
             this.comboBoxMaritalStatus.Size = new System.Drawing.Size(200, 22);
             this.comboBoxMaritalStatus.TabIndex = 8;
+            this.comboBoxMaritalStatus.SelectedIndex = 0;
             // 
             // labelAdress
             // 
@@ -313,6 +315,14 @@ namespace Z1_forms
             this.checkBox.Text = "Uplatňujem si daňový bonus na dieťa (deti) žijúce so mnou v domácnosti";
             this.checkBox.UseVisualStyleBackColor = true;
             //this.checkBox.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // labelChildrenData
+            // 
+            this.labelChildrenNamesValidation.Location = new System.Drawing.Point(240, 528);
+            this.labelChildrenNamesValidation.Text = "Nevyplnili ste mená všetkých detí!";
+            this.labelChildrenNamesValidation.ForeColor = System.Drawing.Color.Red;
+            this.labelChildrenNamesValidation.Size = new System.Drawing.Size(300, 20);
+            labelChildrenNamesValidation.Visible = false;
             // 
             // labelChildrenData
             // 
@@ -438,6 +448,8 @@ namespace Z1_forms
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.dateTimePicker);
             
+            Controls.Add(this.labelChildrenNamesValidation);
+            
             this.Controls.Add(this.transformBtn);
             this.Controls.Add(this.checkBtn);
             this.Controls.Add(this.saveBtn);
@@ -497,6 +509,8 @@ namespace Z1_forms
         
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.DateTimePicker dateTimePicker;
+        
+        private System.Windows.Forms.Label labelChildrenNamesValidation;
     
     }
 }

@@ -45,31 +45,164 @@ namespace Z1_forms
         {
             FormManager.ValidateData(this.XML_file);
         }
+        
+        private Boolean inputValidation()
+        {
+            Boolean flag = true;
+            Boolean missingChildName = false;
+            
+            //First Name
+            if (string.IsNullOrEmpty(textBoxFirstName.Text) )
+            {
+                labelFirstName.Text = "Meno - Toto pole je povinné";
+                labelFirstName.ForeColor = System.Drawing.Color.Red;
+                flag = false;
+            }
+            else
+            {
+                labelFirstName.Text = "Meno";
+                labelFirstName.ForeColor = System.Drawing.Color.Black;
+            }
+            
+            //Last name
+            if (string.IsNullOrEmpty(textBoxLastName.Text) )
+            {
+                labelLastName.Text = "Priezvisko - Toto pole je povinné";
+                labelLastName.ForeColor = System.Drawing.Color.Red;
+                flag = false;
+            }
+            else
+            {
+                labelLastName.Text = "Priezvisko";
+                labelLastName.ForeColor = System.Drawing.Color.Black;
+            }
+            
+            //Street
+            if (string.IsNullOrEmpty(textBoxStreet.Text) )
+            {
+                labelStreet.Text = "Ulica - Toto pole je povinné";
+                labelStreet.ForeColor = System.Drawing.Color.Red;
+                flag = false;
+            }
+            else
+            {
+                labelStreet.Text = "Ulica";
+                labelStreet.ForeColor = System.Drawing.Color.Black;
+            }
+            
+            //HouseNumber
+            if (string.IsNullOrEmpty(textBoxHouseNumber.Text ))
+            {
+                labelHouseNumber.Text = "Súpisné/orientačné číslo - povinné ";
+                labelHouseNumber.ForeColor = System.Drawing.Color.Red;
+                flag = false;
+            }
+            else
+            {
+                labelHouseNumber.Text = "Súpisné/orientačné číslo";
+                labelHouseNumber.ForeColor = System.Drawing.Color.Black;
+            }
+            
+            //PostalCode
+            if (string.IsNullOrEmpty(textBoxPostalCode.Text ))
+            {
+                labelPostalCode.Text = "PSČ - Toto pole je povinné";
+                labelPostalCode.ForeColor = System.Drawing.Color.Red;
+                flag = false;
+            }
+            else
+            {
+                if (!textBoxPostalCode.Text.All(char.IsDigit) || textBoxPostalCode.Text.Length != 5)
+                {
+                    labelPostalCode.Text = "PSČ - Zadajte 5 číslic bez medzery";
+                    labelPostalCode.ForeColor = System.Drawing.Color.Red;
+                    flag = false;
+                }
+                else
+                {
+                    labelPostalCode.Text = "PSČ";
+                    labelPostalCode.ForeColor = System.Drawing.Color.Black; 
+                }
+                
+            }
+            
+            //City
+            if (string.IsNullOrEmpty(textBoxCity.Text ))
+            {
+                labelCity.Text = "Obec - Toto pole je povinné";
+                labelCity.ForeColor = System.Drawing.Color.Red;
+                flag = false;
+            }
+            else
+            {
+                labelCity.Text = "Obec";
+                labelCity.ForeColor = System.Drawing.Color.Black;
+            }
+            
+            //State
+            if (string.IsNullOrEmpty(textBoxState.Text ))
+            {
+                labelState.Text = "Štát - Toto pole je povinné";
+                labelState.ForeColor = System.Drawing.Color.Red;
+                flag = false;
+            }
+            else
+            {
+                labelState.Text = "Štát";
+                labelState.ForeColor = System.Drawing.Color.Black;
+            }
+
+            for (int i = 1; i <= numericUpDownNumberOfChildren.Value; i++)
+            {
+                string name = Controls.Find("textboxChildName_" + i.ToString(), true).FirstOrDefault().Text;
+                if (string.IsNullOrEmpty(name))
+                {
+                    flag = false;
+                    missingChildName = true;
+                    break;
+                }
+            }
+
+            if(missingChildName)
+            {
+                labelChildrenNamesValidation.Visible = true;
+            }
+            else
+            {
+                labelChildrenNamesValidation.Visible = false;
+            }
+            
+            return flag;
+            
+        }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            FormData data = new FormData();
-            data.name = textBoxFirstName.Text;
-            data.surname = textBoxLastName.Text;
-            data.age = numericUpDownAge.Value;
+            if (this.inputValidation())
+            {
+                FormData data = new FormData();
+                data.name = textBoxFirstName.Text;
+                data.surname = textBoxLastName.Text;
+                data.age = numericUpDownAge.Value;
 
-            data.degreeAfter = textBoxDegreeAfterName.Text;
-            data.degreeBefore = textBoxDegreeBeforeName.Text;
-            data.maritalStatus = comboBoxMaritalStatus.Text;
+                data.degreeAfter = textBoxDegreeAfterName.Text;
+                data.degreeBefore = textBoxDegreeBeforeName.Text;
+                data.maritalStatus = comboBoxMaritalStatus.Text;
 
-            data.streetName = textBoxStreet.Text;
-            data.houseNum = textBoxHouseNumber.Text;
-            data.postcode = textBoxPostalCode.Text;
+                data.streetName = textBoxStreet.Text;
+                data.houseNum = textBoxHouseNumber.Text;
+                data.postcode = textBoxPostalCode.Text;
 
-            data.city = textBoxCity.Text;
-            data.country = textBoxState.Text;
+                data.city = textBoxCity.Text;
+                data.country = textBoxState.Text;
 
-            data.tax = checkBox.Checked;
-            data.date = dateTimePicker.Value;
+                data.tax = checkBox.Checked;
+                data.date = dateTimePicker.Value;
 
-            data.kids = getChildren();
+                data.kids = getChildren();
 
-            this.XML_file = FormManager.SaveData(data);
+                this.XML_file = FormManager.SaveData(data);
+            }
         }
 
         private List<Child> getChildren()
