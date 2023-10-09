@@ -54,7 +54,7 @@ namespace Z1_forms
             //First Name
             if (string.IsNullOrEmpty(textBoxFirstName.Text) )
             {
-                labelFirstName.Text = "Meno - Toto pole je povinné";
+                labelFirstName.Text = "Meno - Povinné pole";
                 labelFirstName.ForeColor = System.Drawing.Color.Red;
                 flag = false;
             }
@@ -67,7 +67,7 @@ namespace Z1_forms
             //Last name
             if (string.IsNullOrEmpty(textBoxLastName.Text) )
             {
-                labelLastName.Text = "Priezvisko - Toto pole je povinné";
+                labelLastName.Text = "Priezvisko - Povinné pole";
                 labelLastName.ForeColor = System.Drawing.Color.Red;
                 flag = false;
             }
@@ -80,7 +80,7 @@ namespace Z1_forms
             //Street
             if (string.IsNullOrEmpty(textBoxStreet.Text) )
             {
-                labelStreet.Text = "Ulica - Toto pole je povinné";
+                labelStreet.Text = "Ulica - Povinné pole";
                 labelStreet.ForeColor = System.Drawing.Color.Red;
                 flag = false;
             }
@@ -93,7 +93,7 @@ namespace Z1_forms
             //HouseNumber
             if (string.IsNullOrEmpty(textBoxHouseNumber.Text ))
             {
-                labelHouseNumber.Text = "Súpisné/orientačné číslo - povinné ";
+                labelHouseNumber.Text = "Súpisné číslo - Povinné pole";
                 labelHouseNumber.ForeColor = System.Drawing.Color.Red;
                 flag = false;
             }
@@ -106,7 +106,7 @@ namespace Z1_forms
             //PostalCode
             if (string.IsNullOrEmpty(textBoxPostalCode.Text ))
             {
-                labelPostalCode.Text = "PSČ - Toto pole je povinné";
+                labelPostalCode.Text = "PSČ - Povinné pole";
                 labelPostalCode.ForeColor = System.Drawing.Color.Red;
                 flag = false;
             }
@@ -114,7 +114,7 @@ namespace Z1_forms
             {
                 if (!textBoxPostalCode.Text.All(char.IsDigit) || textBoxPostalCode.Text.Length != 5)
                 {
-                    labelPostalCode.Text = "PSČ - Zadajte 5 číslic bez medzery";
+                    labelPostalCode.Text = "PSČ - Zadajte spolu 5 číslic";
                     labelPostalCode.ForeColor = System.Drawing.Color.Red;
                     flag = false;
                 }
@@ -129,7 +129,7 @@ namespace Z1_forms
             //City
             if (string.IsNullOrEmpty(textBoxCity.Text ))
             {
-                labelCity.Text = "Obec - Toto pole je povinné";
+                labelCity.Text = "Obec - Povinné pole";
                 labelCity.ForeColor = System.Drawing.Color.Red;
                 flag = false;
             }
@@ -142,7 +142,7 @@ namespace Z1_forms
             //State
             if (string.IsNullOrEmpty(textBoxState.Text ))
             {
-                labelState.Text = "Štát - Toto pole je povinné";
+                labelState.Text = "Štát - Povinné pole";
                 labelState.ForeColor = System.Drawing.Color.Red;
                 flag = false;
             }

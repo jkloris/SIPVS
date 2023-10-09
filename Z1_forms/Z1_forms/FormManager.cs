@@ -24,8 +24,10 @@ namespace Z1_forms
             String path = "../../../XML_output_" + id + ".xml";
             using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))
             {
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                ns.Add("taxBonusForm", "http://www.taxBonusForm.com");
                 XmlSerializer serializer = new XmlSerializer(typeof(FormData));
-                serializer.Serialize(writer, data);
+                serializer.Serialize(writer, data, ns);
             }
             MessageBox.Show("Údaje boli uložené");
 
@@ -42,7 +44,7 @@ namespace Z1_forms
             }
 
             XmlSchemaSet schema = new XmlSchemaSet();
-            schema.Add("", "../../XML_scheme.xsd");
+            schema.Add("http://www.taxBonusForm.com", "../../XML_scheme.xsd");
             XmlReader rd = XmlReader.Create(file);
             XDocument doc = XDocument.Load(rd);
             var success = true;
