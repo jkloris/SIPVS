@@ -3,14 +3,14 @@
 		   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 		   xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		   targetNamespace="http://www.taxBonusForm.com" 
-		   xmlns:x="http://www.taxBonusForm.com"
+		   xmlns="http://www.taxBonusForm.com"
 		   attributeFormDefault="unqualified" 
 		   elementFormDefault="qualified">
 	<xsd:element name="FormData">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="name" type="x:mandatoryStringType" />
-				<xsd:element name="surname" type="x:mandatoryStringType" />
+				<xsd:element name="name" type="mandatoryStringType" />
+				<xsd:element name="surname" type="mandatoryStringType" />
 				<xsd:element name="age">
 					<xs:simpleType>
 						<xs:restriction base="xs:integer">
@@ -32,9 +32,9 @@
 						</xs:restriction>
 					</xs:simpleType>
 				</xsd:element>
-				<xsd:element name="streetName" type="x:mandatoryStringType" />
-				<xsd:element name="houseNum" type="x:mandatoryStringType" />
-				<xsd:element name="city" type="x:mandatoryStringType" />
+				<xsd:element name="streetName" type="mandatoryStringType" />
+				<xsd:element name="houseNum" type="mandatoryStringType" />
+				<xsd:element name="city" type="mandatoryStringType" />
 				<xsd:element name="postcode">
 					<xs:simpleType>
 						<xs:restriction base="xs:integer">
@@ -42,7 +42,7 @@
 						</xs:restriction>
 					</xs:simpleType>
 				</xsd:element>
-				<xsd:element name="country" type="x:mandatoryStringType" />
+				<xsd:element name="country" type="mandatoryStringType" />
 				<xsd:element name="tax" type="xsd:boolean" />
 				<xsd:element name="kids">
 					<xsd:complexType>
@@ -50,7 +50,7 @@
 							<xsd:element name="Child">
 								<xsd:complexType>
 									<xsd:sequence>
-										<xsd:element name="fullname" type="x:mandatoryStringType" />
+										<xsd:element name="fullname" type="mandatoryStringType" />
 										<xsd:element name="age">
 											<xs:simpleType>
 												<xs:restriction base="xs:integer">
