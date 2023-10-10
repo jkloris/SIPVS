@@ -14,8 +14,7 @@
 				<xsd:element name="age">
 					<xs:simpleType>
 						<xs:restriction base="xs:integer">
-							<!--aky vek specifikovat? 0/15/18?-->
-							<xs:minInclusive value="0" />
+							<xs:minInclusive value="15" />
 							<xs:maxInclusive value="110" />
 						</xs:restriction>
 					</xs:simpleType>
