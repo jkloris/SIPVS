@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Z1_forms.model
+{
+    public class Child
+    {
+        public string fullname { get; set; }
+        public decimal age { get; set; }
+
+        public Child() { }
+
+        public Child(string fullname, decimal age)
+        {
+            this.fullname = fullname;
+            this.age = age;
+        }
+
+    }
+}

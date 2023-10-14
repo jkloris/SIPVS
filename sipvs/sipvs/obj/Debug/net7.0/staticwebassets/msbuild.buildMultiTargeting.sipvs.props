@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\sipvs.props" />
+</Project>

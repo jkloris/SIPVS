@@ -1,0 +1,136 @@
+﻿@{
+    @model Z1_forms.model.FormData
+    Layout = null;
+}
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=utf-16">
+        <title>Vyhlasenie</title>
+        <style>
+              .label {
+                font-weight: bold;
+                display: block;
+              }
+		      .flex{
+			    display: flex;
+		      }
+              body{
+                width: 50%;
+              }
+
+              .center{
+                text-align: center;
+              }
+
+              .myButton{
+                border: 1px solid #000; 
+                padding: 5px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+              }
+
+              .inputRectangle{
+                width: 300px;
+                height: 30px;
+                padding: 5px;
+                margin: 5px;
+                border: 1px solid #000;
+              }
+            </style>
+      </head>
+      <body>
+        <form asp-controller="home" method="post">
+            <div class="center">
+              <h4>VYHLÁSENIE</h4>
+              <div>
+                    na uplatnenie nezdaniteľnej časti základu dane na daňovníka a daňového bonusu podľa § 36 ods. 6
+                    neexistujúceho zákona o dani z príjmov v znení neskorších predpisov (ďalej len „vyhlásenie“)
+                    </div><br><br><DIV>
+                        Vyhlásenie podľa § 36 ods. 6 neexistujúceho zákona o dani z príjmov v znení neskorších predpisov (ďalej len „zákon“) doručí zamestnanec zamestnávateľovi, ktorý je platiteľom dane (ďalej len „zamestnávateľ“), u ktorého si uplatňuje nárok na nezdaniteľnú časť základu dane na daňovníka a nárok na daňový bonus (§ 33). Ak má zamestnanec súčasne viacerých zamestnávateľov, vyhlásenie predloží len jednému z nich.
+                    </DIV>
+            </div>
+            <h5>I. ÚDAJE O ZAMESTNANCOVI</h5>
+            <div class="flex">
+              <div>
+                <label for="surname">Priezvisko:</label><br>
+                <input asp-for="surname" type="text" id="surname" name="surname" class="inputRectangle">
+              </div>
+              <div>
+                <label for="name">Meno</label><br>
+                <input asp-for="name" class="inputRectangle" type="text" id="name" name="name">
+                </div>
+              <div>
+                    <label for="age">Vek</label><br>
+                    <input asp-for="age" class="inputRectangle" type="text" id="age" name="age">
+              </div>
+            </div>
+            <div class="flex">
+              <div>
+                <label for="degreeBefore">Titul (pred menom)</label><br>
+                <input asp-for="degreeBefore" class="inputRectangle" type="text" id="degreeBefore" name="degreeBefore">
+                </div>
+                <div>
+                <label for="degreeAfter">Titul (za menom)</label><br>
+                <input asp-for="degreeAfter" class="inputRectangle" type="text" id="degreeAfter" name="degreeAfter">
+                </div>
+                <div>
+                    <label for="maritalStatus">Rodinný stav:</label><br>
+                    <select asp-for="maritalStatus" class="inputRectangle" id="maritalStatus" name="maritalStatus">
+                        <option value="single">slobodný/slobodná</option>
+                        <option value="married">ženatý/vydatá</option>
+                        <option value="divorced">rozvedený/rozvedená</option>
+                        <option value="widowed">vdovec/vdova</option>
+                    </select>
+                </div>
+              </div>
+            <div class="flex">
+                <div>
+                <label for="streetName">Ulica:</label><br>
+                <input asp-for="streetName" type="text" id="streetName" name="streetName" class="inputRectangle">
+                </div>
+                <div>
+                <label for="houseNum">Súpisné/orientačné číslo</label><br>
+                <input asp-for="houseNum" class="inputRectangle" type="text" id="houseNum" name="houseNum">
+                </div>
+                <div>
+                <label for="postCode">PSČ</label><br>
+                <input asp-for="postCode" class="inputRectangle" type="text" id="postCode" name="postCode">
+                </div>
+            </div>
+            <div class="flex">
+                <div>
+                    <label for="city">Obec:</label><br>
+                    <input asp-for="city" type="text" id="city" name="city" class="inputRectangle">
+                </div>
+                <div>
+                    <label for="country">Štát</label><br>
+                    <input asp-for="country" class="inputRectangle" type="text" id="country" name="country">
+                </div>
+            </div>
+            <h5>II.ÚDAJE NA UPLATNENIE DAŇOVÉHO BONUSU PODĽA § 33 ZÁKONA</h5>
+            <div>
+                <input asp-for="tax" type="checkbox" id="tax" name="tax">
+                <label for="tax"> Uplatňujem si daňový bonus na dieťa (deti) žijúce so mnou v domácnosti :</label>
+            </div>
+            <div class="flex">
+            </div>
+            <div>
+            <label for="date">Dňa:</label>
+            <input asp-for="date" type="date" id="date" name="date">
+            </div>
+            <div class="flex">
+                <div>
+                    <input asp-action="Submit" type="submit" id="submit" value="Ulož">
+                </div>
+                <div>
+                    <input asp-action="ValidateData" type="submit" id="validate" value="Over">
+                </div>
+                <div>
+                    <input asp-action="TransformToHtml" type="submit" id="transform" value="Transformuj">
+                </div>
+            </div>
+        </form>
+      </body>
+</html>
