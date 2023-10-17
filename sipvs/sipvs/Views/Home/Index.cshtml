@@ -1,6 +1,6 @@
 ﻿@{
     @model Z1_forms.model.FormData
-    Layout = null;
+    Layout = "_Layout";
 }
 <html>
     <head>
@@ -63,7 +63,7 @@
                 </div>
               <div>
                     <label for="age">Vek</label><br>
-                    <input asp-for="age" class="inputRectangle" type="text" id="age" name="age">
+                    <input asp-for="age" class="inputRectangle" type="number" id="age" name="age">
               </div>
             </div>
             <div class="flex">
@@ -114,8 +114,61 @@
                 <input asp-for="tax" type="checkbox" id="tax" name="tax">
                 <label for="tax"> Uplatňujem si daňový bonus na dieťa (deti) žijúce so mnou v domácnosti :</label>
             </div>
+            
+            
             <div class="flex">
+                <input  type="number" id="numofkids" value="0" name="numofkids">
             </div>
+            <div id="newRow">
+
+            </div>
+
+            @section Scripts  
+{  
+            <script>  
+
+                document.getElementById("numofkids").addEventListener("click", function() { 
+                    var rowCount = parseInt($("#numofkids").val());
+                    var inputRowElements = $("[id=inputRow]");
+
+                    if (rowCount < inputRowElements.length) {
+                        inputRowElements.last().remove();
+                    } else {
+                         var html = '';
+                        html += '<div id="inputRow" class="flex">';
+                        html += '<input  class="inputRectangle" type="text" name="kids[' + (rowCount - 1) + '].fullname"  />';
+                        html += '<input  class="inputRectangle" type="number" name="kids[' + (rowCount - 1) + '].age"  />';
+                        html += '</div>';
+                        $('#newRow').append(html)
+                    }
+                    
+                })
+            //$("#addRow").click(function ()  
+            //{  
+                  
+            //    rowCount++;  
+            //    $("#total").val(rowCount);  
+            //    var html = '';  
+            //    html += '<div id="inputRow">';  
+            //    html += '<input type="text" name="[' + (rowCount - 1) + '].Name"  />';  
+            //    html += '<input type="number" name="[' + (rowCount - 1) + '].Age"  />';  
+            //    //add more inputs here...  
+            //    html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';  
+            //    html += '</div>';  
+  
+            //    $('#newRow').append(html);  
+            //});  
+            //$(document).on('click', '#removeRow', function ()  
+            //{  
+            //    var rowCount = parseInt($("#total").val());  
+            //    rowCount--;  
+            //    $("#total").val(rowCount);  
+            //    $(this).closest('#inputRow').remove();  
+            //});  
+            </script>  
+}  
+
+
             <div>
             <label for="date">Dňa:</label>
             <input asp-for="date" type="date" id="date" name="date">

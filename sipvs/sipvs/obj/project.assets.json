@@ -8,19 +8,23 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Marek\\.nuget\\packages\\": {}
+    "C:\\Users\\Lenovo T470\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Marek\\source\\repos\\sipvs\\sipvs\\sipvs.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj",
       "projectName": "sipvs",
-      "projectPath": "C:\\Users\\Marek\\source\\repos\\sipvs\\sipvs\\sipvs.csproj",
-      "packagesPath": "C:\\Users\\Marek\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Marek\\source\\repos\\sipvs\\sipvs\\obj\\",
+      "projectPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj",
+      "packagesPath": "C:\\Users\\Lenovo T470\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Marek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lenovo T470\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -51,8 +55,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -64,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -31,6 +31,7 @@ namespace sipvs.Controllers
                 ns.Add("taxBonusForm", "http://www.taxBonusForm.com");
                 XmlSerializer serializer = new XmlSerializer(typeof(FormData));
                 serializer.Serialize(writer, data, ns);
+                
             }
             return View("Views/Home/Index.cshtml");
         }
