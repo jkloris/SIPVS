@@ -23,6 +23,7 @@ namespace sipvs.Controllers
         [HttpPost]
         public ActionResult Submit(FormData data)
         {
+            data.fillOutEmptyData();
             var id = Guid.NewGuid().ToString("N");
             String path = "XML_output_" + id + ".xml";
             using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))

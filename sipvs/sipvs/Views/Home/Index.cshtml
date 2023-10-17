@@ -38,6 +38,15 @@
                 margin: 5px;
                 border: 1px solid #000;
               }
+
+              .bottomMargin{
+                margin: 20px;
+              }
+
+              .button{
+                margin: 10px;
+                width: 150px;
+              }
             </style>
       </head>
       <body>
@@ -110,13 +119,13 @@
                 </div>
             </div>
             <h5>II.ÚDAJE NA UPLATNENIE DAŇOVÉHO BONUSU PODĽA § 33 ZÁKONA</h5>
-            <div>
+            <div class="bottomMargin">
                 <input asp-for="tax" type="checkbox" id="tax" name="tax">
                 <label for="tax"> Uplatňujem si daňový bonus na dieťa (deti) žijúce so mnou v domácnosti :</label>
             </div>
             
             
-            <div class="flex">
+            <div class="flex botomMargin">
                 <input  type="number" id="numofkids" value="0" name="numofkids">
             </div>
             <div id="newRow">
@@ -169,19 +178,19 @@
 }  
 
 
-            <div>
+            <div class="bottomMargin">
             <label for="date">Dňa:</label>
-            <input asp-for="date" type="date" id="date" name="date">
+            <input asp-for="date" type="date" id="date" name="date" asp-format="{0:yyyy-MM-ddTHH:mm}">
             </div>
             <div class="flex">
                 <div>
-                    <input asp-action="Submit" type="submit" id="submit" value="Ulož">
+                    <input asp-action="Submit" type="submit" class="button" id="submit" value="Ulož">
                 </div>
                 <div>
-                    <input asp-action="ValidateData" type="submit" id="validate" value="Over">
+                    <input asp-action="ValidateData" type="submit" class="button" id="validate" value="Over">
                 </div>
                 <div>
-                    <input asp-action="TransformToHtml" type="submit" id="transform" value="Transformuj">
+                    <input asp-action="TransformToHtml" type="submit" class="button" id="transform" value="Transformuj">
                 </div>
             </div>
         </form>
