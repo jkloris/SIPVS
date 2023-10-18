@@ -108,7 +108,7 @@
             <div>
 		        <p>PSČ </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="postcode"/>
+		        	<xsl:value-of select="postCode"/>
 		        </div>
             </div>
 

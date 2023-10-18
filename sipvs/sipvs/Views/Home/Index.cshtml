@@ -21,6 +21,18 @@
               .center{
                 text-align: center;
               }
+              #reject{
+                  background-color: red;
+                  color:white;
+                  margin: 5px;
+                  text-align: center;
+              }
+              #confirm{
+                  background-color:green;
+                  color: white;
+                  margin: 5px;
+                  text-align: center;
+              }
 
               .myButton{
                 border: 1px solid #000; 
@@ -47,9 +59,14 @@
                 margin: 10px;
                 width: 150px;
               }
+
+              span{
+                  color:red;
+              }
             </style>
       </head>
       <body>
+
         <form asp-controller="home" method="post">
             <div class="center">
               <h4>VYHLÁSENIE</h4>
@@ -64,15 +81,19 @@
             <div class="flex">
               <div>
                 <label for="surname">Priezvisko:</label><br>
-                <input asp-for="surname" type="text" id="surname" name="surname" class="inputRectangle">
+                <input asp-for="surname" type="text" id="surname" name="surname" class="inputRectangle"><br>
+                <span asp-validation-for="surname"></span>
               </div>
               <div>
                 <label for="name">Meno</label><br>
-                <input asp-for="name" class="inputRectangle" type="text" id="name" name="name">
+                <input asp-for="name" class="inputRectangle" type="text" id="name" name="name"><br>
+                <span asp-validation-for="name"></span>
                 </div>
               <div>
                     <label for="age">Vek</label><br>
-                    <input asp-for="age" class="inputRectangle" type="number" id="age" name="age">
+                    <input asp-for="age" class="inputRectangle" type="number" id="age" name="age"><br>
+                <span asp-validation-for="age"></span>
+
               </div>
             </div>
             <div class="flex">
@@ -97,25 +118,38 @@
             <div class="flex">
                 <div>
                 <label for="streetName">Ulica:</label><br>
-                <input asp-for="streetName" type="text" id="streetName" name="streetName" class="inputRectangle">
+                <input asp-for="streetName" type="text" id="streetName" name="streetName" class="inputRectangle"><br>
+                <span asp-validation-for="streetName"></span>
+
                 </div>
                 <div>
                 <label for="houseNum">Súpisné/orientačné číslo</label><br>
-                <input asp-for="houseNum" class="inputRectangle" type="text" id="houseNum" name="houseNum">
+                <input asp-for="houseNum" class="inputRectangle" type="text" id="houseNum" name="houseNum"><br>
+                <span asp-validation-for="houseNum"></span>
+
                 </div>
                 <div>
                 <label for="postCode">PSČ</label><br>
                 <input asp-for="postCode" class="inputRectangle" type="text" id="postCode" name="postCode">
+                <br>
+                <span asp-validation-for="postCode"></span>
+
                 </div>
             </div>
             <div class="flex">
                 <div>
                     <label for="city">Obec:</label><br>
                     <input asp-for="city" type="text" id="city" name="city" class="inputRectangle">
+                    <br>
+                     <span asp-validation-for="city"></span>
+
                 </div>
                 <div>
                     <label for="country">Štát</label><br>
                     <input asp-for="country" class="inputRectangle" type="text" id="country" name="country">
+                    <br>
+                    <span asp-validation-for="country"></span>
+
                 </div>
             </div>
             <h5>II.ÚDAJE NA UPLATNENIE DAŇOVÉHO BONUSU PODĽA § 33 ZÁKONA</h5>
@@ -126,10 +160,23 @@
             
             
             <div class="flex botomMargin">
-                <input  type="number" id="numofkids" value="0" name="numofkids">
+                <input  type="number" id="numofkids" value="1" min=1 name="numofkids">
             </div>
             <div id="newRow">
-
+                <div id="inputRow" class="flex">
+                        <div>
+                            <label >Meno a priezvisko:</label><br>
+                            <input  class="inputRectangle" type="text" name="kids[0].fullname"  /> 
+                            <br>
+                            @*<span asp-validation-for="kids[0].fullname"></span>*@
+                        </div>
+                        <div>
+                            <label >Vek:</label><br>
+                            <input  class="inputRectangle" type="number" name="kids[0].age"  />
+                            <br>
+                            @*<span asp-validation-for="kids[0].age"></span>*@
+                        </div>
+                </div>
             </div>
 
             @section Scripts  
@@ -152,35 +199,13 @@
                     }
                     
                 })
-            //$("#addRow").click(function ()  
-            //{  
-                  
-            //    rowCount++;  
-            //    $("#total").val(rowCount);  
-            //    var html = '';  
-            //    html += '<div id="inputRow">';  
-            //    html += '<input type="text" name="[' + (rowCount - 1) + '].Name"  />';  
-            //    html += '<input type="number" name="[' + (rowCount - 1) + '].Age"  />';  
-            //    //add more inputs here...  
-            //    html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';  
-            //    html += '</div>';  
-  
-            //    $('#newRow').append(html);  
-            //});  
-            //$(document).on('click', '#removeRow', function ()  
-            //{  
-            //    var rowCount = parseInt($("#total").val());  
-            //    rowCount--;  
-            //    $("#total").val(rowCount);  
-            //    $(this).closest('#inputRow').remove();  
-            //});  
             </script>  
 }  
 
 
             <div class="bottomMargin">
             <label for="date">Dňa:</label>
-            <input asp-for="date" type="date" id="date" name="date" asp-format="{0:yyyy-MM-ddTHH:mm}">
+            <input asp-for="date" type="date" id="date" max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" name="date" asp-format="{0:yyyy-MM-ddTHH:mm}">
             </div>
             <div class="flex">
                 <div>
@@ -192,6 +217,12 @@
                 <div>
                     <input asp-action="TransformToHtml" type="submit" class="button" id="transform" value="Transformuj">
                 </div>
+            </div>
+            <div id="confirm">
+                @ViewData["confirmation"]
+            </div>
+            <div id="reject">
+                @ViewData["rejection"]
             </div>
         </form>
       </body>

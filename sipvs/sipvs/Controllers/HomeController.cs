@@ -15,84 +15,93 @@ namespace sipvs.Controllers
 {
     public class HomeController : Controller
     {
+        
+        public static string fileId = null;
         public IActionResult Index()
         {
             return View();
         }
-
+         
         [HttpPost]
         public ActionResult Submit(FormData data)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewData["rejection"] = "Neplatný formulár";
+                return View("Views/Home/Index.cshtml");
+            }
             data.fillOutEmptyData();
-            var id = Guid.NewGuid().ToString("N");
-            String path = "XML_output_" + id + ".xml";
+
+            fileId = Guid.NewGuid().ToString("N");
+            String path = "XML_" + fileId + "output_.xml";
             using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))
             {
                 XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                ns.Add("taxBonusForm", "http://www.taxBonusForm.com");
+                ns.Add("taxbonusform", "http://www.taxbonusform.com");
+                
                 XmlSerializer serializer = new XmlSerializer(typeof(FormData));
                 serializer.Serialize(writer, data, ns);
                 
             }
+            ViewData["confirmation"] = "Formulár bol uložený";
             return View("Views/Home/Index.cshtml");
         }
 
         public ActionResult ValidateData(FormData data)
         {
-            var id = Guid.NewGuid().ToString("N");
-            String path = "XML_output_" + id + ".xml";
-            using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))
+
+
+           
+            if (fileId == null)
             {
-                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                ns.Add("taxBonusForm", "http://www.taxBonusForm.com");
-                XmlSerializer serializer = new XmlSerializer(typeof(FormData));
-                serializer.Serialize(writer, data, ns);
+                ViewData["rejection"] = "Najprv ulozte subor!";
+                return View("Views/Home/Index.cshtml");
             }
+            String path = "XML_" + fileId + "output_.xml";
 
             XmlSchemaSet schema = new XmlSchemaSet();
             schema.Add("http://www.taxBonusForm.com", "XML_scheme.xsd");
             XmlReader rd = XmlReader.Create(path);
             XDocument doc = XDocument.Load(rd);
-            var success = true;
-            doc.Validate(schema, (sender, e) =>
-            {
-                Console.WriteLine(e.Message);
-                success = false;
-                ValidationEventHandler(sender, e);
-            }, true);
 
-            if (success)
-            {
-                return Content("Údaje spĺňajú zadanú štruktúru");
-                //MessageBox.Show("Údaje spĺňajú zadanú štruktúru");
+            try {
+                doc.Validate(schema, (sender, e) =>
+                {
+                    Console.WriteLine(e.Message);
+                    ValidationEventHandler(sender, e);
+                }, true);
             }
+            catch
+            {
+                ViewData["rejection"] = "Údaje nespĺňajú zadanú štruktúru";
+                return View("Views/Home/Index.cshtml");
 
-            return Content("Údaje nespĺňajú zadanú štruktúru");
+            }
+            ViewData["confirmation"] = "Údaje sĺňajú zadanú štruktúru";
+            return View("Views/Home/Index.cshtml");
         }
+
 
         static void ValidationEventHandler(object sender, ValidationEventArgs e)
         {
             XmlSeverityType type = XmlSeverityType.Warning;
             if (Enum.TryParse<XmlSeverityType>("Error", out type))
             {
-                if (type == XmlSeverityType.Error)
+                if (type == XmlSeverityType.Warning || type == XmlSeverityType.Error)
                 {
-                    //MessageBox.Show(e.Message); //throw new Exception(e.Message);
+                    throw new Exception(e.Message);
                 }
             }
         }
 
         public ActionResult TransformToHtml(FormData data)
         {
-            var id = Guid.NewGuid().ToString("N");
-            String path = "XML_output_" + id + ".xml";
-            using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))
+            if(fileId == null)
             {
-                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                ns.Add("taxBonusForm", "http://www.taxBonusForm.com");
-                XmlSerializer serializer = new XmlSerializer(typeof(FormData));
-                serializer.Serialize(writer, data, ns);
+                ViewData["rejection"] = "Najprv ulozte subor!";
+                return View("Views/Home/Index.cshtml");
             }
+            String path = "XML_" + fileId + "output_.xml";
 
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(path);
@@ -101,16 +110,13 @@ namespace sipvs.Controllers
 
             using (StringWriter writer = new StringWriter())
             {
-                // Perform the transformation
                 xslTransform.Transform(xmlDoc, null, writer);
-
-                // Get the transformed HTML as a string
                 string transformedHtml = writer.ToString();
-
-                // Print or use the transformed HTML as needed
-                System.IO.File.AppendAllText("output.html", transformedHtml);
+                System.IO.File.WriteAllText("output.html", transformedHtml);
+            //return Content(transformedHtml);
             }
-            return Content("Údaje sa transformovali do html");
+            ViewData["confirmation"] = "Formulár bol transformovaný";
+            return View("Views/Home/Index.cshtml");
         }
     }
 }
