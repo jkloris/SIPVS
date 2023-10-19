@@ -91,7 +91,7 @@
                 </div>
               <div>
                     <label for="age">Vek</label><br>
-                    <input asp-for="age" class="inputRectangle" type="number" id="age" name="age"><br>
+                    <input asp-for="age" class="inputRectangle" type="number" id="age" min=18 name="age"><br>
                 <span asp-validation-for="age"></span>
 
               </div>
@@ -108,10 +108,10 @@
                 <div>
                     <label for="maritalStatus">Rodinný stav:</label><br>
                     <select asp-for="maritalStatus" class="inputRectangle" id="maritalStatus" name="maritalStatus">
-                        <option value="single">slobodný/slobodná</option>
-                        <option value="married">ženatý/vydatá</option>
-                        <option value="divorced">rozvedený/rozvedená</option>
-                        <option value="widowed">vdovec/vdova</option>
+                        <option value="slobodný/slobodná">slobodný/slobodná</option>
+                        <option value="ženatý/vydatá">ženatý/vydatá</option>
+                        <option value="rozvedený/rozvedená">rozvedený/rozvedená</option>
+                        <option value="vdovec/vdova">vdovec/vdova</option>
                     </select>
                 </div>
               </div>
@@ -168,13 +168,13 @@
                             <label >Meno a priezvisko:</label><br>
                             <input  class="inputRectangle" type="text" name="kids[0].fullname"  /> 
                             <br>
-                            @*<span asp-validation-for="kids[0].fullname"></span>*@
+                            <span asp-validation-for="kids[0].fullname"></span>
                         </div>
                         <div>
                             <label >Vek:</label><br>
                             <input  class="inputRectangle" type="number" name="kids[0].age"  />
                             <br>
-                            @*<span asp-validation-for="kids[0].age"></span>*@
+                            <span asp-validation-for="kids[0].age"></span>
                         </div>
                 </div>
             </div>
@@ -206,6 +206,7 @@
             <div class="bottomMargin">
             <label for="date">Dňa:</label>
             <input asp-for="date" type="date" id="date" max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" name="date" asp-format="{0:yyyy-MM-ddTHH:mm}">
+            <span asp-validation-for="date"></span>
             </div>
             <div class="flex">
                 <div>

@@ -60,7 +60,8 @@ namespace sipvs.Controllers
             String path = "XML_" + fileId + "output_.xml";
 
             XmlSchemaSet schema = new XmlSchemaSet();
-            schema.Add("http://www.taxBonusForm.com", "XML_scheme.xsd");
+            schema.Add("http://www.taxbonusform.com", "XML_scheme.xsd");
+
             XmlReader rd = XmlReader.Create(path);
             XDocument doc = XDocument.Load(rd);
 

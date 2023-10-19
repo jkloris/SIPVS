@@ -2,8 +2,8 @@
 <xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 		   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 		   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		   targetNamespace="http://www.taxBonusForm.com" 
-		   xmlns="http://www.taxBonusForm.com"
+		   targetNamespace="http://www.taxbonusform.com" 
+		   xmlns="http://www.taxbonusform.com"
 		   attributeFormDefault="unqualified" 
 		   elementFormDefault="qualified">
 	<xsd:element name="FormData">
@@ -34,7 +34,7 @@
 				<xsd:element name="streetName" type="mandatoryStringType" />
 				<xsd:element name="houseNum" type="mandatoryStringType" />
 				<xsd:element name="city" type="mandatoryStringType" />
-				<xsd:element name="postcode">
+				<xsd:element name="postCode">
 					<xs:simpleType>
 						<xs:restriction base="xs:integer">
 							<xs:totalDigits value="5" />
@@ -45,7 +45,7 @@
 				<xsd:element name="tax" type="xsd:boolean" />
 				<xsd:element name="kids">
 					<xsd:complexType>
-						<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+						<xsd:sequence minOccurs="1" maxOccurs="unbounded">
 							<xsd:element name="Child">
 								<xsd:complexType>
 									<xsd:sequence>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-				              xmlns:ms="urn:schemas-microsoft-com:xslt">
+				              xmlns:ms="urn:schemas-microsoft-com:xslt"
+							  xmlns:taxbonusform="http://www.taxbonusform.com">
 
   <!-- Match the root element of your XML -->
-  <xsl:template match="FormData">
+  <xsl:template match="taxbonusform:FormData">
     <html>
       <head>
         <title>Vyhlasenie</title>
@@ -54,19 +55,19 @@
             <div>
 		        <p>Priezvisko </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="surname"/>
+		        	<xsl:value-of select="taxbonusform:surname"/>
 		        </div>
             </div>
             <div>
 		        <p>Meno </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="name"/>
+		        	<xsl:value-of select="taxbonusform:name"/>
 		        </div>
             </div>
             <div>
 		        <p>Vek </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="age"/>
+		        	<xsl:value-of select="taxbonusform:age"/>
 		        </div>
             </div>
 
@@ -75,19 +76,19 @@
             <div>
 		        <p>Titul (pred menom) </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="degreeBefore"/>
+		        	<xsl:value-of select="taxbonusform:degreeBefore"/>
 		        </div>
             </div>
             <div>
 		        <p>Titul (za menom) </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="degreeAfter"/>
+		        	<xsl:value-of select="taxbonusform:degreeAfter"/>
 		        </div>
             </div>
             <div>
 		        <p>Rodinný stav </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="maritalStatus"/>
+		        	<xsl:value-of select="taxbonusform:maritalStatus"/>
 		        </div>
             </div>
 
@@ -96,19 +97,19 @@
             <div>
 		        <p>Ulica </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="streetName"/>
+		        	<xsl:value-of select="taxbonusform:streetName"/>
 		        </div>
             </div>
             <div>
 		        <p>Súpisné/orientačné číslo </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="houseNum"/>
+		        	<xsl:value-of select="taxbonusform:houseNum"/>
 		        </div>
             </div>
             <div>
 		        <p>PSČ </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="postCode"/>
+		        	<xsl:value-of select="taxbonusform:postCode"/>
 		        </div>
             </div>
 
@@ -117,13 +118,13 @@
             <div>
 		        <p>Obec </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="city"/>
+		        	<xsl:value-of select="taxbonusform:city"/>
 		        </div>
             </div>
             <div>
 		        <p>Štát </p>
 		        <div class="rectangle">
-		        	<xsl:value-of select="country"/>
+		        	<xsl:value-of select="taxbonusform:country"/>
 		        </div>
             </div>
 
@@ -134,25 +135,25 @@
        <h5>II.ÚDAJE NA UPLATNENIE DAŇOVÉHO BONUSU PODĽA § 33 ZÁKONA</h5>
        <div>
         <input type="checkbox" disabled="true">
-          <xsl:if test="tax = 'true'">
+          <xsl:if test="taxbonusform:tax = 'true'">
             <xsl:attribute name="checked">checked</xsl:attribute>
           </xsl:if>
         </input>
         Uplatňujem si daňový bonus na dieťa (deti) žijúce so mnou v domácnosti
        </div>
-          <xsl:for-each select="kids/Child">
+          <xsl:for-each select="taxbonusform:kids/taxbonusform:Child">
            
             <div class="flex">
                 <div>
 		            <p>Meno a priezvisko </p>
 		            <div class="rectangle">
-		            	<xsl:value-of select="fullname"/>
+		            	<xsl:value-of select="taxbonusform:fullname"/>
 		            </div>
                 </div>
                 <div>
 		            <p>Vek </p>
 		            <div class="rectangle">
-		            	<xsl:value-of select="age"/>
+		            	<xsl:value-of select="taxbonusform:age"/>
 		            </div>
                 </div>
 
@@ -160,7 +161,7 @@
             </div>
         </xsl:for-each>
         
-        <p>Dňa: <xsl:value-of select="ms:format-date(date, 'dd. MM. yyyy')" /></p>
+        <p>Dňa: <xsl:value-of select="ms:format-date(taxbonusform:date, 'dd. MM. yyyy')" /></p>
       </body>
     </html>
   </xsl:template>
