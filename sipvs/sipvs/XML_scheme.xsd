@@ -6,6 +6,7 @@
 		   xmlns="http://www.taxbonusform.com"
 		   attributeFormDefault="unqualified" 
 		   elementFormDefault="qualified">
+	
 	<xsd:element name="FormData">
 		<xsd:complexType>
 			<xsd:sequence>
@@ -64,7 +65,7 @@
 						</xsd:sequence>
 					</xsd:complexType>
 				</xsd:element>
-				<xsd:element name="date" type="xsd:dateTime" />
+				<xsd:element name="dateFormat" type="dateFormatAttribute" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
@@ -74,4 +75,11 @@
 			<xs:minLength value="1"/>
 		</xs:restriction>
 	</xs:simpleType>
+
+	<xsd:complexType name="dateFormatAttribute">
+		<xsd:sequence>
+			<xs:element name="date" type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="format" type="xsd:string"/>
+	</xsd:complexType>
 </xs:schema>

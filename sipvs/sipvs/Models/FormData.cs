@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using sipvs.Models;
 
 namespace Z1_forms.model
 {
@@ -47,9 +49,9 @@ namespace Z1_forms.model
         public bool tax { get; set; }
        
         public List<Child> kids { get; set; }
-        [XmlElement( Namespace = "http://www.taxbonusform.com")]
-        [Required(ErrorMessage = "Povinné pole")]
-        public DateTime date { get; set; }
+        public sipvs.Models.DateFormat dateFormat { get; set; }
+
+        //public DateTime date { get; set; }
 
         public void fillOutEmptyData()
         {
