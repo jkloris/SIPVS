@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<taxbonusform:FormData xmlns:taxbonusform="http://www.taxbonusform.com">
+  <taxbonusform:name>Katarína</taxbonusform:name>
+  <taxbonusform:surname>Beňovská</taxbonusform:surname>
+  <taxbonusform:age>25</taxbonusform:age>
+  <taxbonusform:degreeAfter />
+  <taxbonusform:degreeBefore />
+  <taxbonusform:maritalStatus>slobodný/slobodná</taxbonusform:maritalStatus>
+  <taxbonusform:streetName>Pri Hrubej Lúke 3641/4B</taxbonusform:streetName>
+  <taxbonusform:houseNum>1523</taxbonusform:houseNum>
+  <taxbonusform:city>Bratislava</taxbonusform:city>
+  <taxbonusform:postCode>84101</taxbonusform:postCode>
+  <taxbonusform:country>Slovensko</taxbonusform:country>
+  <taxbonusform:tax>false</taxbonusform:tax>
+  <taxbonusform:kids>
+    <taxbonusform:Child>
+      <taxbonusform:fullname>regtre</taxbonusform:fullname>
+      <taxbonusform:age>11</taxbonusform:age>
+    </taxbonusform:Child>
+  </taxbonusform:kids>
+  <taxbonusform:date>2023-10-28T00:00:00</taxbonusform:date>
+</taxbonusform:FormData>

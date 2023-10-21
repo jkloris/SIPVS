@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-				              xmlns:ms="urn:schemas-microsoft-com:xslt"
 							  xmlns:taxbonusform="http://www.taxbonusform.com">
 
   <!-- Match the root element of your XML -->
@@ -160,8 +159,9 @@
 
             </div>
         </xsl:for-each>
-        
-        <p>Dňa: <xsl:value-of select="ms:format-date(taxbonusform:date, 'dd. MM. yyyy')" /></p>
+
+          <p>Dňa: <xsl:value-of select="normalize-space(concat(substring(taxbonusform:date, 9, 2), '. ', substring(taxbonusform:date, 6, 2), '. ', substring(taxbonusform:date, 1, 4)))" /></p>
+       
       </body>
     </html>
   </xsl:template>

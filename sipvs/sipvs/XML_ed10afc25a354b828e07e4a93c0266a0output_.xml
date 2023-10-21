@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<taxbonusform:FormData xmlns:taxbonusform="http://www.taxbonusform.com">
+  <taxbonusform:name>katarína</taxbonusform:name>
+  <taxbonusform:surname>Beňovská</taxbonusform:surname>
+  <taxbonusform:age>22</taxbonusform:age>
+  <taxbonusform:degreeAfter />
+  <taxbonusform:degreeBefore />
+  <taxbonusform:maritalStatus>slobodný/slobodná</taxbonusform:maritalStatus>
+  <taxbonusform:streetName>rgf</taxbonusform:streetName>
+  <taxbonusform:houseNum>22</taxbonusform:houseNum>
+  <taxbonusform:city>fmrnke</taxbonusform:city>
+  <taxbonusform:postCode>12365</taxbonusform:postCode>
+  <taxbonusform:country>ekrnglken</taxbonusform:country>
+  <taxbonusform:tax>false</taxbonusform:tax>
+  <taxbonusform:kids>
+    <taxbonusform:Child>
+      <taxbonusform:fullname>ekrng jkrng</taxbonusform:fullname>
+      <taxbonusform:age>2</taxbonusform:age>
+    </taxbonusform:Child>
+  </taxbonusform:kids>
+  <taxbonusform:date>2023-10-20T00:00:00</taxbonusform:date>
+</taxbonusform:FormData>

@@ -10,6 +10,10 @@ using System.Xml.Serialization;
 using Z1_forms.model;
 using System.Xml.Xsl;
 using System.IO;
+using System.Runtime.InteropServices.JavaScript;
+using System.Text.Json;
+using System.Text;
+
 
 namespace sipvs.Controllers
 {
@@ -46,10 +50,35 @@ namespace sipvs.Controllers
             ViewData["confirmation"] = "Formulár bol uložený";
             return View("Views/Home/Index.cshtml");
         }
+        
+        [HttpGet("sign")]
+        public IActionResult signDocument()
+        {
+            if (fileId == null)
+            {
+                return Ok("Najskôr uložte súbor");
+            }
+            string jsonString = JsonSerializer.Serialize(new {
+                xml_file =System.IO.File.ReadAllText(Path.Combine("./","XML_" + fileId + "output_.xml")),
+                xsl_file = System.IO.File.ReadAllText(Path.Combine("./","xsltest.xsl")),
+                xsd_file = System.IO.File.ReadAllText(Path.Combine("./","XML_scheme.xsd")),
+            });
+            return Ok(jsonString);
+        }
+        
+        //táto funkcia sa síce zavolá ale nedôdu do nej dáta a vytvorí sa iba prázdny súbor
+        [HttpPost("xades")]
+        public IActionResult saveXades(string data)
+        { 
+            
+            string fileName = "xades.xml";
+            System.IO.File.WriteAllText("foo.xml", data);
+            return Ok(fileName);
+          
+        }
 
         public ActionResult ValidateData(FormData data)
         {
-
 
            
             if (fileId == null)

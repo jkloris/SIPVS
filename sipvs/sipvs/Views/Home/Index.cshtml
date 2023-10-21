@@ -63,13 +63,83 @@
               span{
                   color:red;
               }
+              
+             
             </style>
+            <script type="text/javascript" src="https://www.slovensko.sk/static/zep/dbridge_js/v1.0/config.js"></script>
+        	<script type="text/javascript" src="https://www.slovensko.sk/static/zep/dbridge_js/v1.0/dCommon.min.js"></script>
+			<script type="text/javascript" src="https://www.slovensko.sk/static/zep/dbridge_js/v1.0/dSigXades.min.js"></script>
+        <script>
+      
+        function sign() {
+        			try {
+                        
+                        $.get('/sign', function (data) {
+							
+							if(data == "Najskôr uložte súbor"){
+								alert("Najskôr uložte súbor")
+								return;
+							}
+        					const files = JSON.parse(data);
+        					      
+        					
+							function Callback(onSuccess) {
+								this.onSuccess = onSuccess;
+								this.onError = function(e) {
+									alert("Chyba: " + e);
+								}
+                            }	
+							
+        												
+        					ditec.dSigXadesJs.deploy(null, new Callback(function(){			
+        						ditec.dSigXadesJs.initialize(new Callback(function(){
+        								ditec.dSigXadesJs.addXmlObject2 ( 
+        								'objectId' , 
+        								'Vyhlasenie' , 
+        								files.xml_file , 
+        								files.xsd_file , 
+        								'http://www.taxbonusform.com' , 
+        								'http://www.w3.org/2001/XMLSchema' , 
+        								files.xsl_file, 
+        								'http://www.taxbonusform.com' , 
+        								'HTML',
+        								new Callback(function(){
+        								ditec.dSigXadesJs.sign20("signatureId", "http://www.w3.org/2001/04/xmlenc#sha256", "urn:oid:1.3.158.36061701.1.2.3", "dataEnvelopeId", "http://dataEnvelopeURI", "dataEnvelopeDescr", new Callback(function(){
+        									ditec.dSigXadesJs.getSignedXmlWithEnvelopeBase64(new Callback(function(ret) {
+												
+												//tento alert je tu iba pre testové účely
+        										alert(ret);
+        																						
+        										$.ajax({
+        											url : "/xades",
+        											type: "POST",
+        											data : JSON.stringify({ "data": ret }),//tieto dáta sa nepošlú na server a nezapíšu do súboru
+        											contentType: 'application/json',
+        											success: function(fileName) {
+        												alert("Bol vytvorený súbor: " + fileName);
+        											},
+        											error: function () {
+        												alert('Pri ukladaní súboru došlo k chybe!');
+        											}
+        										});
+        									}));
+        								}));
+        							}));
+        						}));				
+        					}));
+                        });
+                    } catch (e) {
+        			    alert("Došlo k chybe");
+        			}
+                }
+        </script>
+        
       </head>
       <body>
-
-        <form asp-controller="home" method="post">
+     
+      <form asp-controller="home" method="post">
             <div class="center">
-              <h4>VYHLÁSENIE</h4>
+	           <h4>VYHLÁSENIE</h4>
               <div>
                     na uplatnenie nezdaniteľnej časti základu dane na daňovníka a daňového bonusu podľa § 36 ods. 6
                     neexistujúceho zákona o dani z príjmov v znení neskorších predpisov (ďalej len „vyhlásenie“)
@@ -218,6 +288,9 @@
                 <div>
                     <input asp-action="TransformToHtml" type="submit" class="button" id="transform" value="Transformuj">
                 </div>
+	            <div>
+		            <button class="sign button"  onclick="sign(); return false" AutoPostBack="false">Podpísať</button>
+	            </div>
             </div>
             <div id="confirm">
                 @ViewData["confirmation"]
@@ -226,5 +299,6 @@
                 @ViewData["rejection"]
             </div>
         </form>
+        
       </body>
 </html>
