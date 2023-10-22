@@ -51,8 +51,6 @@ namespace Z1_forms.model
         public List<Child> kids { get; set; }
         public sipvs.Models.DateFormat dateFormat { get; set; }
 
-        //public DateTime date { get; set; }
-
         public void fillOutEmptyData()
         {
             this.name ??= "";

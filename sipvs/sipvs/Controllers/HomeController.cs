@@ -13,7 +13,8 @@ using System.IO;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
 using System.Text;
-
+using System.Security.Cryptography.Xml;
+using System.Security.Cryptography.X509Certificates;
 
 namespace sipvs.Controllers
 {
@@ -68,11 +69,19 @@ namespace sipvs.Controllers
         
         //táto funkcia sa síce zavolá ale nedôdu do nej dáta a vytvorí sa iba prázdny súbor
         [HttpPost("xades")]
-        public IActionResult saveXades(string data)
-        { 
-            
-            string fileName = "xades.xml";
-            System.IO.File.WriteAllText("foo.xml", data);
+        public IActionResult saveXades([FromBody] Models.Signature signature)
+        {
+            if (fileId == null)
+            {
+                return Ok("Najskôr uložte súbor");
+            }
+            string data = signature.data;
+            string fileName = "xades_output.xml";
+
+            XmlDocument xdoc = new XmlDocument();
+            xdoc.LoadXml(data);
+            xdoc.Save(fileName);
+
             return Ok(fileName);
           
         }

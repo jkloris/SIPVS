@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\sipvs",
+    "\\Z1_forms"
   ],
-  "SelectedNode": "\\Z1_forms.sln",
+  "SelectedNode": "\\sipvs\\sipvs.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -105,7 +105,7 @@
         								'HTML',
         								new Callback(function(){
         								ditec.dSigXadesJs.sign20("signatureId", "http://www.w3.org/2001/04/xmlenc#sha256", "urn:oid:1.3.158.36061701.1.2.3", "dataEnvelopeId", "http://dataEnvelopeURI", "dataEnvelopeDescr", new Callback(function(){
-        									ditec.dSigXadesJs.getSignedXmlWithEnvelopeBase64(new Callback(function(ret) {
+        									ditec.dSigXadesJs.getSignedXmlWithEnvelope(new Callback(function(ret) {
 												
 												//tento alert je tu iba pre testové účely
         										alert(ret);
@@ -253,7 +253,7 @@
 {  
             <script>  
 
-                document.getElementById("numofkids").addEventListener("click", function() { 
+                document.getElementById("numofkids").addEventListener("change", function() { 
                     var rowCount = parseInt($("#numofkids").val());
                     var inputRowElements = $("[id=inputRow]");
 
@@ -275,7 +275,6 @@
 
             <div class="bottomMargin">
             <label for="date">Dňa:</label>
-            <!--<input asp-for="date" type="date" id="date" max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" name="date" asp-format="{0:yyyy-MM-ddTHH:mm}">-->
             <input asp-for="dateFormat.date" type="date" id="date" max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" name="dateFormat.date" asp-format="{0:yyyy-MM-ddTHH:mm}">
             <span asp-validation-for="dateFormat.date"></span>
             </div>
