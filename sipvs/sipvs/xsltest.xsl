@@ -160,7 +160,7 @@
             </div>
         </xsl:for-each>
 
-          <p>Dňa: <xsl:value-of select="normalize-space(concat(substring(taxbonusform:date, 9, 2), '. ', substring(taxbonusform:date, 6, 2), '. ', substring(taxbonusform:date, 1, 4)))" /></p>
+          <p>Dňa: <xsl:value-of select="taxbonusform:dateFormat/taxbonusform:date" /></p>
        
       </body>
     </html>
