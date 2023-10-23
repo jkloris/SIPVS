@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Z1_forms.model
+@{
     @model Z1_forms.model.FormData
     Layout = "_Layout";
 }
@@ -230,45 +231,95 @@
             
             
             <div class="flex botomMargin">
-                <input  type="number" id="numofkids" value="1" min=1 name="numofkids">
+                <button id="addRow" type="button" class="btn btn-secondary" style="margin-right: 5px;">Pridaj dieťa</button> 
+                <button id="removeRow" type="button" class="btn btn-secondary">Uber dieťa</button> 
             </div>
+         
+            
             <div id="newRow">
-                <div id="inputRow" class="flex">
-                        <div>
-                            <label >Meno a priezvisko:</label><br>
-                            <input  class="inputRectangle" type="text" name="kids[0].fullname"  /> 
-                            <br>
-                            <span asp-validation-for="kids[0].fullname"></span>
+                    @if (TempData["Kids"] != null)
+                    {
+                        var kids = TempData["Kids"] as List<Child>;
+                        for (int i = 0; i < kids.Count; i++)
+                        {
+                         <div id="inputRow" class="flex">
+                            <div>
+                                <label >Meno a priezvisko:</label><br>
+                                <input class="inputRectangle" type="text" name="kids[@i].fullname" value="@kids[i].fullname" />
+                                <br>
+                                <span asp-validation-for="kids[i].fullname"></span>
+                            </div>
+                            <div>
+                                <label>Vek:</label><br>
+                                <input class="inputRectangle" type="number" name="kids[@i].age" value="@kids[i].age" />
+                                <br>
+                                <span asp-validation-for="kids[i].age"></span>
+                            </div>
                         </div>
-                        <div>
-                            <label >Vek:</label><br>
-                            <input  class="inputRectangle" type="number" name="kids[0].age"  />
-                            <br>
-                            <span asp-validation-for="kids[0].age"></span>
+                    }
+                }
+                else
+                {
+                        <div id="inputRow" class="flex">
+                            <div>
+                                <label >Meno a priezvisko:</label><br>
+                                <input  class="inputRectangle" type="text" name="kids[0].fullname"  /> 
+                                <br>
+                                <span asp-validation-for="kids[0].fullname"></span>
+                            </div>
+                            <div>
+                                <label >Vek:</label><br>
+                                <input  class="inputRectangle" type="number" name="kids[0].age"  />
+                                <br>
+                                <span asp-validation-for="kids[0].age"></span>
+                            </div>
+
                         </div>
-                </div>
+
+                }
+                
             </div>
 
             @section Scripts  
 {  
             <script>  
 
-                document.getElementById("numofkids").addEventListener("change", function() { 
-                    var rowCount = parseInt($("#numofkids").val());
-                    var inputRowElements = $("[id=inputRow]");
 
-                    if (rowCount < inputRowElements.length) {
-                        inputRowElements.last().remove();
-                    } else {
+                      $("#removeRow").click(function() {
+                        var inputRowElements = $("[id=inputRow]");
+                        if (inputRowElements.length > 1)
+                            inputRowElements.last().remove();
+                    });
+
+
+
+              
+                  $("#addRow").click(function ()  
+                    {  
+                         var inputRowElements = $("[id=inputRow]");  
                          var html = '';
-                        html += '<div id="inputRow" class="flex">';
-                        html += '<input  class="inputRectangle" type="text" name="kids[' + (rowCount - 1) + '].fullname"  />';
-                        html += '<input  class="inputRectangle" type="number" name="kids[' + (rowCount - 1) + '].age"  />';
+                         html += '<div id="inputRow" class="flex">';
+                         html +=`<div>
+                                <label >Meno a priezvisko:</label><br>
+                                <input  class="inputRectangle" type="text" name="kids[${inputRowElements.length}].fullname"  /> 
+                                <br>
+                                <span asp-validation-for="kids[${inputRowElements.length}].fullname"></span>
+                            </div>`
+                          html += `<div>
+                                <label >Vek:</label><br>
+                                <input  class="inputRectangle" type="number" name="kids[${inputRowElements.length}].age"  />
+                                <br>
+                                <span asp-validation-for="kids[${inputRowElements.length}].age"></span>
+                            </div>`
+                        
+                        //html += '<input  class="inputRectangle" type="text" name="kids[' + (inputRowElements.length ) + '].fullname"  />';
+                        //html += '<input  class="inputRectangle" type="number" name="kids[' + (inputRowElements.length ) + '].age"  />';
                         html += '</div>';
-                        $('#newRow').append(html)
-                    }
-                    
-                })
+                        $('#newRow').append(html) 
+  
+                    });
+
+                
             </script>  
 }  
 

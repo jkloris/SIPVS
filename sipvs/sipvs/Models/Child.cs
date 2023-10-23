@@ -16,7 +16,7 @@ namespace Z1_forms.model
         public string fullname { get; set; }
         //[XmlElement(Namespace = "http://www.taxbonusform.com")]
         [Required(ErrorMessage = "Povinné pole")]
-        public decimal age { get; set; }
+        public decimal? age { get; set; }
 
         public Child() { }
 

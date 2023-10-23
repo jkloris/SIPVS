@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FIIT\\SIPVS\\Zadania\\Zadanie2.2\\sipvs\\sipvs\\sipvs.csproj": {}
+    "C:\\Users\\kapusta.j\\Documents\\skola\\sipvs_new\\SIPVS\\sipvs\\sipvs\\sipvs.csproj": {}
   },
   "projects": {
-    "D:\\FIIT\\SIPVS\\Zadania\\Zadanie2.2\\sipvs\\sipvs\\sipvs.csproj": {
+    "C:\\Users\\kapusta.j\\Documents\\skola\\sipvs_new\\SIPVS\\sipvs\\sipvs\\sipvs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie2.2\\sipvs\\sipvs\\sipvs.csproj",
+        "projectUniqueName": "C:\\Users\\kapusta.j\\Documents\\skola\\sipvs_new\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
         "projectName": "sipvs",
-        "projectPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie2.2\\sipvs\\sipvs\\sipvs.csproj",
-        "packagesPath": "C:\\Users\\Kristina Okasova\\.nuget\\packages\\",
-        "outputPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie2.2\\sipvs\\sipvs\\obj\\",
+        "projectPath": "C:\\Users\\kapusta.j\\Documents\\skola\\sipvs_new\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
+        "packagesPath": "C:\\Users\\kapusta.j\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kapusta.j\\Documents\\skola\\sipvs_new\\SIPVS\\sipvs\\sipvs\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Kristina Okasova\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kapusta.j\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -37,8 +37,8 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "imports": [
             "net461",
             "net462",
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\x64\\sdk\\6.0.407\\RuntimeIdentifierGraph.json"
         }
       }
     }
