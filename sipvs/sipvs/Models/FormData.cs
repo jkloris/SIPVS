@@ -11,6 +11,7 @@ namespace Z1_forms.model
     [XmlRoot(Namespace = "http://www.taxbonusform.com", ElementName = "FormData")]
     public class FormData
     {
+
         [XmlElement(Namespace = "http://www.taxbonusform.com")]
         [Required( ErrorMessage="Povinné pole")]
         public string name { get; set; }
@@ -19,7 +20,7 @@ namespace Z1_forms.model
         public string surname { get; set; }
         [XmlElement(Namespace = "http://www.taxbonusform.com")]
         [Required( ErrorMessage="Povinné pole")]
-        public decimal age { get; set; }
+        public decimal? age { get; set; }
         [XmlElement(Namespace = "http://www.taxbonusform.com")]
         public string? degreeAfter { get; set; }
         [XmlElement(Namespace = "http://www.taxbonusform.com")]
@@ -49,7 +50,7 @@ namespace Z1_forms.model
         public List<Child> kids { get; set; }
         [XmlElement( Namespace = "http://www.taxbonusform.com")]
         [Required(ErrorMessage = "Povinné pole")]
-        public DateTime date { get; set; }
+        public DateTime? date { get; set; }
 
         public void fillOutEmptyData()
         {

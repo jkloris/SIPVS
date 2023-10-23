@@ -8,23 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Lenovo T470\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\kapusta.j\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj",
+      "projectUniqueName": "C:\\Users\\kapusta.j\\Documents\\skola\\sipvs_new\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
       "projectName": "sipvs",
-      "projectPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj",
-      "packagesPath": "C:\\Users\\Lenovo T470\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\obj\\",
+      "projectPath": "C:\\Users\\kapusta.j\\Documents\\skola\\sipvs_new\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
+      "packagesPath": "C:\\Users\\kapusta.j\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kapusta.j\\Documents\\skola\\sipvs_new\\SIPVS\\sipvs\\sipvs\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Lenovo T470\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kapusta.j\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -55,7 +51,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -67,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\x64\\sdk\\6.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   }

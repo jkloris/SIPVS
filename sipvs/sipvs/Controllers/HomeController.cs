@@ -21,15 +21,19 @@ namespace sipvs.Controllers
         {
             return View();
         }
-         
+
+
         [HttpPost]
         public ActionResult Submit(FormData data)
         {
+            TempData["Kids"] = data.kids;
             if (!ModelState.IsValid)
             {
                 ViewData["rejection"] = "Neplatný formulár";
                 return View("Views/Home/Index.cshtml");
             }
+
+
             data.fillOutEmptyData();
 
             fileId = Guid.NewGuid().ToString("N");
@@ -51,7 +55,7 @@ namespace sipvs.Controllers
         {
 
 
-           
+            TempData["Kids"] = data.kids;
             if (fileId == null)
             {
                 ViewData["rejection"] = "Najprv ulozte subor!";
@@ -97,7 +101,8 @@ namespace sipvs.Controllers
 
         public ActionResult TransformToHtml(FormData data)
         {
-            if(fileId == null)
+            TempData["Kids"] = data.kids;
+            if (fileId == null)
             {
                 ViewData["rejection"] = "Najprv ulozte subor!";
                 return View("Views/Home/Index.cshtml");
