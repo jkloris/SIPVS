@@ -73,6 +73,8 @@
         <script>
       
         function sign() {
+
+
         			try {
                         
                         $.get('/sign', function (data) {
@@ -104,27 +106,39 @@
         								files.xsl_file, 
         								'http://www.taxbonusform.com' , 
         								'HTML',
-        								new Callback(function(){
-        								ditec.dSigXadesJs.sign20("signatureId", "http://www.w3.org/2001/04/xmlenc#sha256", "urn:oid:1.3.158.36061701.1.2.3", "dataEnvelopeId", "http://dataEnvelopeURI", "dataEnvelopeDescr", new Callback(function(){
-        									ditec.dSigXadesJs.getSignedXmlWithEnvelope(new Callback(function(ret) {
+
+                                        new Callback(function () {
+                                            ditec.dSigXadesJs.addPdfObject(
+                                        "objectFormatIdentifier",
+                                                "taxPDF",
+                                               files.pdf64_file,
+                                                "",
+                                                "http://objectFormatIdentifier",
+                                                0,
+                                                true,
+
+        								        new Callback(function(){
+        								        ditec.dSigXadesJs.sign20("signatureId", "http://www.w3.org/2001/04/xmlenc#sha256", "urn:oid:1.3.158.36061701.1.2.3", "dataEnvelopeId", "http://dataEnvelopeURI", "dataEnvelopeDescr", new Callback(function(){
+        									        ditec.dSigXadesJs.getSignedXmlWithEnvelope(new Callback(function(ret) {
 												
-												//tento alert je tu iba pre testové účely
-        										alert(ret);
+												    
         																						
-        										$.ajax({
-        											url : "/xades",
-        											type: "POST",
-        											data : JSON.stringify({ "data": ret }),//tieto dáta sa nepošlú na server a nezapíšu do súboru
-        											contentType: 'application/json',
-        											success: function(fileName) {
-        												alert("Bol vytvorený súbor: " + fileName);
-        											},
-        											error: function () {
-        												alert('Pri ukladaní súboru došlo k chybe!');
-        											}
-        										});
-        									}));
-        								}));
+        										        $.ajax({
+        											        url : "/xades",
+        											        type: "POST",
+        											        data : JSON.stringify({ "data": ret }),//tieto dáta sa nepošlú na server a nezapíšu do súboru
+        											        contentType: 'application/json',
+        											        success: function(fileName) {
+        												        alert("Bol vytvorený súbor: " + fileName);
+        											        },
+        											        error: function () {
+        												        alert('Pri ukladaní súboru došlo k chybe!');
+        											        }
+        										        });
+        									        }));
+
+                                               }));
+        								 }));
         							}));
         						}));				
         					}));
@@ -342,6 +356,7 @@
 	            <div>
 		            <button class="sign button"  onclick="sign(); return false" AutoPostBack="false">Podpísať</button>
 	            </div>
+
             </div>
             <div id="confirm">
                 @ViewData["confirmation"]

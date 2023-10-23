@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using sipvs.Models;
-using System.Diagnostics;
-using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -9,28 +6,41 @@ using System.Xml;
 using System.Xml.Serialization;
 using Z1_forms.model;
 using System.Xml.Xsl;
-using System.IO;
-using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
-using System.Text;
-using System.Security.Cryptography.Xml;
-using System.Security.Cryptography.X509Certificates;
+using DinkToPdf;
+using DinkToPdf.Contracts;
+using System.Reflection.Metadata;
+using Aspose.Pdf;
+using Document = Aspose.Pdf.Document;
 
 namespace sipvs.Controllers
 {
     public class HomeController : Controller
     {
-        
+
+
         public static string fileId = null;
+
+      
         public IActionResult Index()
         {
             return View();
+        }
+
+        public  void GeneratePdf(String path)
+        {
+            HtmlLoadOptions htmloptions = new HtmlLoadOptions();
+            // Load HTML file
+            Document doc = new Document(path, htmloptions);
+            // Convert HTML file to PDF
+            doc.Save("output.pdf");
         }
 
 
         [HttpPost]
         public ActionResult Submit(FormData data)
         {
+           
             TempData["Kids"] = data.kids;
             if (!ModelState.IsValid)
             {
@@ -47,15 +57,17 @@ namespace sipvs.Controllers
             {
                 XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
                 ns.Add("taxbonusform", "http://www.taxbonusform.com");
-                
+
                 XmlSerializer serializer = new XmlSerializer(typeof(FormData));
                 serializer.Serialize(writer, data, ns);
-                
+
             }
             ViewData["confirmation"] = "Formulár bol uložený";
             return View("Views/Home/Index.cshtml");
         }
-        
+
+
+
         [HttpGet("sign")]
         public IActionResult signDocument()
         {
@@ -63,14 +75,43 @@ namespace sipvs.Controllers
             {
                 return Ok("Najskôr uložte súbor");
             }
-            string jsonString = JsonSerializer.Serialize(new {
-                xml_file =System.IO.File.ReadAllText(Path.Combine("./","XML_" + fileId + "output_.xml")),
-                xsl_file = System.IO.File.ReadAllText(Path.Combine("./","xsltest.xsl")),
-                xsd_file = System.IO.File.ReadAllText(Path.Combine("./","XML_scheme.xsd")),
+            GeneratePdf("output.html");
+            string jsonString = JsonSerializer.Serialize(new
+            {
+                xml_file = System.IO.File.ReadAllText(Path.Combine("./", "XML_" + fileId + "output_.xml")),
+                xsl_file = System.IO.File.ReadAllText(Path.Combine("./", "xsltest.xsl")),
+                xsd_file = System.IO.File.ReadAllText(Path.Combine("./", "XML_scheme.xsd")),
+                pdf64_file = ConvertPdfToBase64("output.pdf")
             });
             return Ok(jsonString);
         }
+
+     
+            public string ConvertPdfToBase64(string pdfFilePath)
+            {
+                if (System.IO.File.Exists(pdfFilePath))
+                {
+                    try
+                    {
+                        byte[] pdfBytes = System.IO.File.ReadAllBytes(pdfFilePath);
+                        string base64String = Convert.ToBase64String(pdfBytes);
+
+                        return base64String;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                        return null;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("File does not exist.");
+                    return null;
+                }
+            }
         
+
         //táto funkcia sa síce zavolá ale nedôdu do nej dáta a vytvorí sa iba prázdny súbor
         [HttpPost("xades")]
         public IActionResult saveXades([FromBody] Models.Signature signature)
@@ -87,18 +128,13 @@ namespace sipvs.Controllers
             xdoc.Save(fileName);
 
             return Ok(fileName);
-          
+
         }
 
         public ActionResult ValidateData(FormData data)
         {
-
-<<<<<<< HEAD
-           
-=======
-
             TempData["Kids"] = data.kids;
->>>>>>> detached
+
             if (fileId == null)
             {
                 ViewData["rejection"] = "Najprv ulozte subor!";
@@ -112,7 +148,8 @@ namespace sipvs.Controllers
             XmlReader rd = XmlReader.Create(path);
             XDocument doc = XDocument.Load(rd);
 
-            try {
+            try
+            {
                 doc.Validate(schema, (sender, e) =>
                 {
                     Console.WriteLine(e.Message);
@@ -162,10 +199,14 @@ namespace sipvs.Controllers
                 xslTransform.Transform(xmlDoc, null, writer);
                 string transformedHtml = writer.ToString();
                 System.IO.File.WriteAllText("output.html", transformedHtml);
-            //return Content(transformedHtml);
+                
             }
             ViewData["confirmation"] = "Formulár bol transformovaný";
+
+            
             return View("Views/Home/Index.cshtml");
+
+
         }
     }
 }

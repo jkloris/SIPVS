@@ -51,6 +51,7 @@ namespace Z1_forms.model
        
         public List<Child> kids { get; set; }
         public sipvs.Models.DateFormat dateFormat { get; set; }
+
 //        [XmlElement( Namespace = "http://www.taxbonusform.com")]
 //        [Required(ErrorMessage = "Povinné pole")]
 //        public DateTime? date { get; set; }
