@@ -23,6 +23,9 @@
             display: block;
           }
 		  .flex{
+			<!-- display: flex; -->
+		  }
+		  .flex_btn{
 			display: flex;
 		  }
           body{

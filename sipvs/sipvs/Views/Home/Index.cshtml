@@ -13,6 +13,9 @@
                 display: block;
               }
 		      .flex{
+			    /* display: flex; */
+		      }
+              .flex_btn{
 			    display: flex;
 		      }
               body{
@@ -343,7 +346,7 @@
             <input asp-for="dateFormat.date" type="date" id="date" max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" name="dateFormat.date" asp-format="{0:yyyy-MM-ddTHH:mm}">
             <span asp-validation-for="dateFormat.date"></span>
             </div>
-            <div class="flex">
+            <div class="flex_btn">
                 <div>
                     <input asp-action="Submit" type="submit" class="button" id="submit" value="Ulož">
                 </div>
