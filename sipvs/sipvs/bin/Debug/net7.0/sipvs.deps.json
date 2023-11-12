@@ -10,7 +10,8 @@
         "dependencies": {
           "Aspose.PDF": "23.10.0",
           "DinkToPdf": "1.0.8",
-          "HtmlRenderer.PdfSharp": "1.5.0.6"
+          "HtmlRenderer.PdfSharp": "1.5.0.6",
+          "Portable.BouncyCastle": "1.9.0"
         },
         "runtime": {
           "sipvs.dll": {}
@@ -174,6 +175,14 @@
           },
           "lib/net20/de/PdfSharp.resources.dll": {
             "locale": "de"
+          }
+        }
+      },
+      "Portable.BouncyCastle/1.9.0": {
+        "runtime": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "assemblyVersion": "1.9.0.0",
+            "fileVersion": "1.9.0.1"
           }
         }
       },
@@ -964,6 +973,13 @@
       "sha512": "sha512-M8w6e4R+jA1j3ddPCY6jNnb8RG21ZgCr+ENapwaH5NPzNl600f1wOcCPY2hEO+jb0aCGjcMHrWk/K+PC1cw0PQ==",
       "path": "pdfsharp/1.32.3057",
       "hashPath": "pdfsharp.1.32.3057.nupkg.sha512"
+    },
+    "Portable.BouncyCastle/1.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eZZBCABzVOek+id9Xy04HhmgykF0wZg9wpByzrWN7q8qEI0Qen9b7tfd7w8VA3dOeesumMG7C5ZPy0jk7PSRHw==",
+      "path": "portable.bouncycastle/1.9.0",
+      "hashPath": "portable.bouncycastle.1.9.0.nupkg.sha512"
     },
     "runtime.native.System/4.0.0": {
       "type": "package",

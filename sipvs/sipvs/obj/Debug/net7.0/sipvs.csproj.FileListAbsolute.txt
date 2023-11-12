@@ -172,3 +172,26 @@ C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadania\sipvs\sipvs\bin\Debug\net
 C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadania\sipvs\sipvs\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadania\sipvs\sipvs\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadania\sipvs\sipvs\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\Aspose.PDF.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\DinkToPdf.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\HtmlRenderer.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\HtmlRenderer.PdfSharp.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\PdfSharp.Charting.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\PdfSharp.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\System.Diagnostics.PerformanceCounter.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\System.Drawing.Common.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\System.Security.Permissions.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\System.Windows.Extensions.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\de\PdfSharp.Charting.resources.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\de\PdfSharp.resources.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Diagnostics.PerformanceCounter.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\obj\Debug\net7.0\sipvs.csproj.CopyComplete
+C:\Users\katbe\Desktop\ING\1.semester\SIPVS\SIPVS\sipvs\sipvs\bin\Debug\net7.0\BouncyCastle.Crypto.dll

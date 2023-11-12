@@ -242,6 +242,19 @@
           }
         }
       },
+      "Portable.BouncyCastle/1.9.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "runtime.native.System/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -1902,6 +1915,21 @@
         "lib/net20/de/PdfSharp.resources.dll",
         "pdfsharp.1.32.3057.nupkg.sha512",
         "pdfsharp.nuspec"
+      ]
+    },
+    "Portable.BouncyCastle/1.9.0": {
+      "sha512": "eZZBCABzVOek+id9Xy04HhmgykF0wZg9wpByzrWN7q8qEI0Qen9b7tfd7w8VA3dOeesumMG7C5ZPy0jk7PSRHw==",
+      "type": "package",
+      "path": "portable.bouncycastle/1.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/BouncyCastle.Crypto.dll",
+        "lib/net40/BouncyCastle.Crypto.xml",
+        "lib/netstandard2.0/BouncyCastle.Crypto.dll",
+        "lib/netstandard2.0/BouncyCastle.Crypto.xml",
+        "portable.bouncycastle.1.9.0.nupkg.sha512",
+        "portable.bouncycastle.nuspec"
       ]
     },
     "runtime.native.System/4.0.0": {
@@ -5301,34 +5329,30 @@
     "net7.0": [
       "Aspose.PDF >= 23.10.0",
       "DinkToPdf >= 1.0.8",
-      "HtmlRenderer.PdfSharp >= 1.5.0.6"
+      "HtmlRenderer.PdfSharp >= 1.5.0.6",
+      "Portable.BouncyCastle >= 1.9.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lenovo T470\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\katbe\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj",
+      "projectUniqueName": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
       "projectName": "sipvs",
-      "projectPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj",
-      "packagesPath": "C:\\Users\\Lenovo T470\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\obj\\",
+      "projectPath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
+      "packagesPath": "C:\\Users\\katbe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Lenovo T470\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\katbe\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Users\\katbe\\.dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5358,6 +5382,10 @@
           "HtmlRenderer.PdfSharp": {
             "target": "Package",
             "version": "[1.5.0.6, )"
+          },
+          "Portable.BouncyCastle": {
+            "target": "Package",
+            "version": "[1.9.0, )"
           }
         },
         "imports": [
@@ -5379,7 +5407,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\katbe\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
   },

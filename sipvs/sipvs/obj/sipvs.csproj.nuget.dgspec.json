@@ -1,30 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj": {}
+    "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\sipvs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj": {
+    "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\sipvs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj",
+        "projectUniqueName": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
         "projectName": "sipvs",
-        "projectPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj",
-        "packagesPath": "C:\\Users\\Lenovo T470\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\obj\\",
+        "projectPath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
+        "packagesPath": "C:\\Users\\katbe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Lenovo T470\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\katbe\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\katbe\\.dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -54,6 +50,10 @@
             "HtmlRenderer.PdfSharp": {
               "target": "Package",
               "version": "[1.5.0.6, )"
+            },
+            "Portable.BouncyCastle": {
+              "target": "Package",
+              "version": "[1.9.0, )"
             }
           },
           "imports": [
@@ -75,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\katbe\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

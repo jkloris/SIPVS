@@ -11,6 +11,16 @@ using DinkToPdf;
 using DinkToPdf.Contracts;
 using System.Reflection.Metadata;
 using Aspose.Pdf;
+using System.Net;
+using Org.BouncyCastle;
+using Org.BouncyCastle.Tsp;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+
 using Document = Aspose.Pdf.Document;
 
 namespace sipvs.Controllers
@@ -208,5 +218,110 @@ namespace sipvs.Controllers
 
 
         }
+        
+        
+        [HttpGet("timeStamp")]
+        public IActionResult TimeStamp()
+        {
+            
+           XmlDocument xades = new XmlDocument(); 
+           xades.Load("./" + "xades_output.xml");
+
+           var namespaceId = new XmlNamespaceManager(xades.NameTable);
+           namespaceId.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
+           string data = xades.SelectSingleNode("//ds:SignatureValue", namespaceId).InnerXml;
+            
+            byte[] signature = System.IO.File.ReadAllBytes("./" + "xades_output.xml");
+            Org.BouncyCastle.Crypto.IDigest digest = new Org.BouncyCastle.Crypto.Digests.Sha256Digest();
+            digest.BlockUpdate(signature, 0, signature.Length);
+            byte[] signatureDigest = new byte[digest.GetDigestSize()];
+            int outOff = 0;
+            digest.DoFinal(signatureDigest, outOff);
+
+            TimeStampRequestGenerator tsRequestGenerator = new TimeStampRequestGenerator(); // certificate generator
+            tsRequestGenerator.SetCertReq(true);
+            TimeStampRequest tsRequest = tsRequestGenerator.Generate(TspAlgorithms.Sha256, signatureDigest); // vygenerujeme request
+
+            
+            byte[] responseBytes = GetTimestamp(tsRequest.GetEncoded(), "https://test.ditec.sk/TSAServer/tsa.aspx");
+
+            TimeStampResponse tsResponse = new TimeStampResponse(responseBytes);
+            
+            
+            XmlNodeList elemList = xades.GetElementsByTagName("xades:QualifyingProperties");
+            XmlElement UnsignedElem = xades.CreateElement("xades" , "UnsignedProperties", "http://uri.etsi.org/01903/v1.3.2#");
+            XmlElement UnsignedSignElem = xades.CreateElement("xades" , "UnsignedSignatureProperties", "http://uri.etsi.org/01903/v1.3.2#");
+            XmlElement SigTimeElem = xades.CreateElement("xades" , "SignatureTimeStamp", "http://uri.etsi.org/01903/v1.3.2#");
+            XmlElement EncapsulatedTimestamp = xades.CreateElement("xades", "EncapsulatedTimeStamp", "http://uri.etsi.org/01903/v1.3.2#");
+            SigTimeElem.SetAttribute("Id", "IdSignatureTimeStamp");
+            EncapsulatedTimestamp.InnerText = Convert.ToBase64String(tsResponse.TimeStampToken.GetEncoded());
+
+            UnsignedElem.AppendChild(UnsignedSignElem);
+            UnsignedSignElem.AppendChild(SigTimeElem);
+            SigTimeElem.AppendChild(EncapsulatedTimestamp);
+
+            elemList[0].InsertAfter(UnsignedElem, elemList[0].LastChild);
+            Console.WriteLine(Convert.ToBase64String(tsResponse.TimeStampToken.GetEncoded()));
+            xades.Save("../xades_output.xml");
+            Console.Write("text" + elemList[0]);
+            
+            
+            
+            return Ok(tsResponse.TimeStampToken.GetCertificates("Collection"));
+        }
+       
+       public byte[] GetTimestamp(byte[] tsRequest, string tsUrl)
+        {
+            const string TS_QUERY_MIME_TYPE = "application/timestamp-query";
+            const string TS_REPLY_MIME_TYPE = "application/timestamp-reply";
+
+             string errorMessage = "OK";
+            try
+            {
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(tsUrl);
+     
+               req.ServerCertificateValidationCallback +=
+                    (sender, cert, chain, error) =>
+                    {
+                        return true;
+                    };
+
+
+                req.Method = "POST";
+                req.ContentType = TS_QUERY_MIME_TYPE;
+                req.ContentLength = tsRequest.Length;
+
+                Stream requestStream = req.GetRequestStream();
+                requestStream.Write(tsRequest, 0, tsRequest.Length);
+                requestStream.Close();
+
+                using (HttpWebResponse res = (HttpWebResponse)req.GetResponse())
+                {
+                    //verify response header
+                    if (res.ContentType.ToLower() != TS_REPLY_MIME_TYPE.ToLower())
+                    {
+                        throw new Exception("incorrect response mimetype. " + res.ContentType);
+                    }
+
+                    using (Stream stm = new BufferedStream(res.GetResponseStream()))
+                    {
+                        stm.Flush();
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            stm.CopyTo(ms);
+                            Console.WriteLine(ms);
+                            return ms.ToArray();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.ToString();
+                return null;
+            }
+        }
+        
+
     }
 }

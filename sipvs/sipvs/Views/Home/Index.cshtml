@@ -150,6 +150,12 @@
         			    alert("Došlo k chybe");
         			}
                 }
+				
+				function timeStamp(){
+					$.get('/timeStamp', function (data) {
+                    	alert("Bol vytvorený súbor s časovou pečiatkou: " + data);
+                    });
+				}
         </script>
         
       </head>
@@ -359,6 +365,10 @@
 	            <div>
 		            <button class="sign button"  onclick="sign(); return false" AutoPostBack="false">Podpísať</button>
 	            </div>
+	            <div>
+		            <button class="sign button"  onclick="timeStamp(); return false" AutoPostBack="false">Časová pečiatka</button>
+		        </div>
+
 
             </div>
             <div id="confirm">
