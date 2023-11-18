@@ -13,6 +13,7 @@ using System.Reflection.Metadata;
 using Aspose.Pdf;
 using System.Net;
 using Org.BouncyCastle;
+using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Tsp;
 using System;
 using System.Collections.Generic;
@@ -224,13 +225,13 @@ namespace sipvs.Controllers
         public IActionResult TimeStamp()
         {
             
-           XmlDocument xades = new XmlDocument(); 
-           xades.Load("./" + "xades_output.xml");
+            XmlDocument xades = new XmlDocument(); 
+            xades.Load("./" + "xades_output.xml");
 
-           var namespaceId = new XmlNamespaceManager(xades.NameTable);
-           namespaceId.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
-           string data = xades.SelectSingleNode("//ds:SignatureValue", namespaceId).InnerXml;
-            
+            var namespaceId = new XmlNamespaceManager(xades.NameTable);
+            namespaceId.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
+            string data = xades.SelectSingleNode("//ds:SignatureValue", namespaceId).InnerXml;
+                
             byte[] signature = System.IO.File.ReadAllBytes("./" + "xades_output.xml");
             Org.BouncyCastle.Crypto.IDigest digest = new Org.BouncyCastle.Crypto.Digests.Sha256Digest();
             digest.BlockUpdate(signature, 0, signature.Length);
@@ -261,11 +262,9 @@ namespace sipvs.Controllers
             SigTimeElem.AppendChild(EncapsulatedTimestamp);
 
             elemList[0].InsertAfter(UnsignedElem, elemList[0].LastChild);
-            Console.WriteLine(Convert.ToBase64String(tsResponse.TimeStampToken.GetEncoded()));
-            xades.Save("../xades_output.xml");
-            Console.Write("text" + elemList[0]);
-            
-            
+            //Console.WriteLine(Convert.ToBase64String(tsResponse.TimeStampToken.GetEncoded()));
+            xades.Save("./xadest_output.xml");
+            //Console.Write("text" + elemList[0]);  
             
             return Ok(tsResponse.TimeStampToken.GetCertificates("Collection"));
         }
@@ -275,12 +274,12 @@ namespace sipvs.Controllers
             const string TS_QUERY_MIME_TYPE = "application/timestamp-query";
             const string TS_REPLY_MIME_TYPE = "application/timestamp-reply";
 
-             string errorMessage = "OK";
+            string errorMessage = "OK";
             try
             {
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(tsUrl);
-     
-               req.ServerCertificateValidationCallback +=
+                
+                req.ServerCertificateValidationCallback +=
                     (sender, cert, chain, error) =>
                     {
                         return true;
@@ -309,7 +308,7 @@ namespace sipvs.Controllers
                         using (MemoryStream ms = new MemoryStream())
                         {
                             stm.CopyTo(ms);
-                            Console.WriteLine(ms);
+                            //Console.WriteLine(ms);
                             return ms.ToArray();
                         }
                     }

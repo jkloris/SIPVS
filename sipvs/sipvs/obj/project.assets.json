@@ -5334,25 +5334,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\katbe\\.nuget\\packages\\": {}
+    "C:\\Users\\Kristina Okasova\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
+      "projectUniqueName": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie3\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
       "projectName": "sipvs",
-      "projectPath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
-      "packagesPath": "C:\\Users\\katbe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\SIPVS\\sipvs\\sipvs\\obj\\",
+      "projectPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie3\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
+      "packagesPath": "C:\\Users\\Kristina Okasova\\.nuget\\packages\\",
+      "outputPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie3\\SIPVS\\sipvs\\sipvs\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\katbe\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Kristina Okasova\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Users\\katbe\\.dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5407,7 +5408,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\katbe\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   },
