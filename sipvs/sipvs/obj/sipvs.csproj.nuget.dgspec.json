@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj": {}
+    "D:\\FIIT\\SIPVS\\Zadania\\Zadanie3\\SIPVS\\sipvs\\sipvs\\sipvs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj": {
+    "D:\\FIIT\\SIPVS\\Zadania\\Zadanie3\\SIPVS\\sipvs\\sipvs\\sipvs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj",
+        "projectUniqueName": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie3\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
         "projectName": "sipvs",
-        "projectPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\sipvs.csproj",
-        "packagesPath": "C:\\Users\\Lenovo T470\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadania\\sipvs\\sipvs\\obj\\",
+        "projectPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie3\\SIPVS\\sipvs\\sipvs\\sipvs.csproj",
+        "packagesPath": "C:\\Users\\Kristina Okasova\\.nuget\\packages\\",
+        "outputPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie3\\SIPVS\\sipvs\\sipvs\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Lenovo T470\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kristina Okasova\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -54,6 +51,10 @@
             "HtmlRenderer.PdfSharp": {
               "target": "Package",
               "version": "[1.5.0.6, )"
+            },
+            "Portable.BouncyCastle": {
+              "target": "Package",
+              "version": "[1.9.0, )"
             }
           },
           "imports": [
@@ -75,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
