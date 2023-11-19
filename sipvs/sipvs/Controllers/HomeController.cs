@@ -89,6 +89,7 @@ namespace sipvs.Controllers
             GeneratePdf("output.html");
             string jsonString = JsonSerializer.Serialize(new
             {
+                id = fileId,
                 xml_file = System.IO.File.ReadAllText(Path.Combine("./", "XML_" + fileId + "output_.xml")),
                 xsl_file = System.IO.File.ReadAllText(Path.Combine("./", "xsltest.xsl")),
                 xsd_file = System.IO.File.ReadAllText(Path.Combine("./", "XML_scheme.xsd")),
