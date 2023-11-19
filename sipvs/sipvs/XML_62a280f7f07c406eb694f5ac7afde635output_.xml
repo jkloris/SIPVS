@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<taxbonusform:FormData xmlns:taxbonusform="http://www.taxbonusform.com">
+  <taxbonusform:name>oivnew</taxbonusform:name>
+  <taxbonusform:surname>oivnwi</taxbonusform:surname>
+  <taxbonusform:age>33</taxbonusform:age>
+  <taxbonusform:degreeAfter />
+  <taxbonusform:degreeBefore />
+  <taxbonusform:maritalStatus>slobodný/slobodná</taxbonusform:maritalStatus>
+  <taxbonusform:streetName>oinvw</taxbonusform:streetName>
+  <taxbonusform:houseNum>33</taxbonusform:houseNum>
+  <taxbonusform:city>voi</taxbonusform:city>
+  <taxbonusform:postCode>33333</taxbonusform:postCode>
+  <taxbonusform:country>oviewn</taxbonusform:country>
+  <taxbonusform:tax>true</taxbonusform:tax>
+  <taxbonusform:kids>
+    <taxbonusform:Child>
+      <taxbonusform:fullname>oviewn oivwneo</taxbonusform:fullname>
+      <taxbonusform:age>3</taxbonusform:age>
+    </taxbonusform:Child>
+  </taxbonusform:kids>
+  <taxbonusform:dateFormat format="yyyy-MM-dd">
+    <taxbonusform:date>2023-11-19</taxbonusform:date>
+  </taxbonusform:dateFormat>
+</taxbonusform:FormData>
