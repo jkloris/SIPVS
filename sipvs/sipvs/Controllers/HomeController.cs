@@ -136,6 +136,19 @@ namespace sipvs.Controllers
 
             XmlDocument xdoc = new XmlDocument();
             xdoc.LoadXml(data);
+
+            XmlNamespaceManager namespaceManager = new XmlNamespaceManager(xdoc.NameTable);
+            namespaceManager.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
+            XmlElement xzepElement;
+            if (xdoc.DocumentElement != null)
+            {
+                xzepElement = xdoc.DocumentElement;
+                if (xzepElement != null)
+                {
+                    xzepElement.SetAttribute("xmlns:ds", "http://www.w3.org/2000/09/xmldsig#");
+                }
+            }
+            
             xdoc.Save(fileName);
 
             return Ok(fileName);
@@ -225,7 +238,8 @@ namespace sipvs.Controllers
         public IActionResult TimeStamp()
         {
             
-            XmlDocument xades = new XmlDocument(); 
+            XmlDocument xades = new XmlDocument();
+            string filename = "./xadest_output.xml";
             xades.Load("./" + "xades_output.xml");
 
             var namespaceId = new XmlNamespaceManager(xades.NameTable);
@@ -263,10 +277,11 @@ namespace sipvs.Controllers
 
             elemList[0].InsertAfter(UnsignedElem, elemList[0].LastChild);
             //Console.WriteLine(Convert.ToBase64String(tsResponse.TimeStampToken.GetEncoded()));
-            xades.Save("./xadest_output.xml");
+            xades.Save(filename);
             //Console.Write("text" + elemList[0]);  
-            
-            return Ok(tsResponse.TimeStampToken.GetCertificates("Collection"));
+
+            //return Ok(tsResponse.TimeStampToken.GetCertificates("Collection"));
+            return Ok(filename);
         }
        
        public byte[] GetTimestamp(byte[] tsRequest, string tsUrl)
