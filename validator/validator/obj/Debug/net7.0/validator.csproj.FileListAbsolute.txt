@@ -1,0 +1,14 @@
+C:\Users\marek\source\repos\validator\validator\bin\Debug\net7.0\validator.exe
+C:\Users\marek\source\repos\validator\validator\bin\Debug\net7.0\validator.deps.json
+C:\Users\marek\source\repos\validator\validator\bin\Debug\net7.0\validator.runtimeconfig.json
+C:\Users\marek\source\repos\validator\validator\bin\Debug\net7.0\validator.dll
+C:\Users\marek\source\repos\validator\validator\bin\Debug\net7.0\validator.pdb
+C:\Users\marek\source\repos\validator\validator\obj\Debug\net7.0\validator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marek\source\repos\validator\validator\obj\Debug\net7.0\validator.AssemblyInfoInputs.cache
+C:\Users\marek\source\repos\validator\validator\obj\Debug\net7.0\validator.AssemblyInfo.cs
+C:\Users\marek\source\repos\validator\validator\obj\Debug\net7.0\validator.csproj.CoreCompileInputs.cache
+C:\Users\marek\source\repos\validator\validator\obj\Debug\net7.0\validator.dll
+C:\Users\marek\source\repos\validator\validator\obj\Debug\net7.0\refint\validator.dll
+C:\Users\marek\source\repos\validator\validator\obj\Debug\net7.0\validator.pdb
+C:\Users\marek\source\repos\validator\validator\obj\Debug\net7.0\validator.genruntimeconfig.cache
+C:\Users\marek\source\repos\validator\validator\obj\Debug\net7.0\ref\validator.dll
