@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\marek\\.nuget\\packages\\": {}
+    "C:\\Users\\Kristina Okasova\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marek\\source\\repos\\validator\\validator\\validator.csproj",
+      "projectUniqueName": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\validator.csproj",
       "projectName": "validator",
-      "projectPath": "C:\\Users\\marek\\source\\repos\\validator\\validator\\validator.csproj",
-      "packagesPath": "C:\\Users\\marek\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marek\\source\\repos\\validator\\validator\\obj\\",
+      "projectPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\validator.csproj",
+      "packagesPath": "C:\\Users\\Kristina Okasova\\.nuget\\packages\\",
+      "outputPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\marek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Kristina Okasova\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
