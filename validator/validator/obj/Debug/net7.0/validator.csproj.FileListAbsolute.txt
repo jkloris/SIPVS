@@ -26,3 +26,24 @@ D:\FIIT\SIPVS\Zadania\Zadanie4\validator\validator\bin\Debug\net7.0\validator.dl
 D:\FIIT\SIPVS\Zadania\Zadanie4\validator\validator\bin\Debug\net7.0\validator.pdb
 D:\FIIT\SIPVS\Zadania\Zadanie4\validator\validator\obj\Debug\net7.0\validator.genruntimeconfig.cache
 D:\FIIT\SIPVS\Zadania\Zadanie4\validator\validator\obj\Debug\net7.0\ref\validator.dll
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\bin\Debug\net7.0\validator.exe
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\bin\Debug\net7.0\validator.deps.json
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\bin\Debug\net7.0\validator.runtimeconfig.json
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\bin\Debug\net7.0\validator.dll
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\bin\Debug\net7.0\validator.pdb
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\validator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\validator.AssemblyInfoInputs.cache
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\validator.AssemblyInfo.cs
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\validator.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\validator.dll
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\refint\validator.dll
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\validator.pdb
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\validator.genruntimeconfig.cache
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\ref\validator.dll
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\validator.csproj.AssemblyReference.cache
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\bin\Debug\net7.0\System.Formats.Asn1.dll
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\bin\Debug\net7.0\System.Security.Cryptography.Xml.dll
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\obj\Debug\net7.0\validator.csproj.CopyComplete
+C:\Users\Lenovo T470\Documents\skola\Ing\SIPVS\zadanie copy\SIPVS\validator\validator\bin\Debug\net7.0\BouncyCastle.Crypto.dll
