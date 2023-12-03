@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\validator",
+    "\\validator\\Priklady",
     "\\validator\\validator"
   ],
-  "SelectedNode": "\\validator\\Priklady",
+  "SelectedNode": "\\validator\\validator\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

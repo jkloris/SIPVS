@@ -48,8 +48,8 @@ static bool validAlgorithms(XmlDocument doc)
     XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
     namespaceManager.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
 
-    XmlNode signatureMethodNode = doc.SelectSingleNode("//ds:SignatureMethod", namespaceManager);
-    XmlNode canonicalizationMethodNode = doc.SelectSingleNode("//ds:CanonicalizationMethod", namespaceManager);
+    XmlNode signatureMethodNode = doc.SelectSingleNode("//ds:Signature/ds:SignedInfo/ds:SignatureMethod", namespaceManager);
+    XmlNode canonicalizationMethodNode = doc.SelectSingleNode("//ds:Signature/ds:SignedInfo/ds:CanonicalizationMethod", namespaceManager);
 
     // Check if the elements are found
     if (signatureMethodNode != null && canonicalizationMethodNode != null)
@@ -111,8 +111,8 @@ static bool validTransform(XmlDocument doc)
     XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
     namespaceManager.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
 
-    XmlNodeList transforms = doc.SelectNodes("//ds:Transform", namespaceManager);
-    XmlNodeList digestMethods = doc.SelectNodes("//ds:DigestMethod", namespaceManager);
+    XmlNodeList transforms = doc.SelectNodes("//ds:Signature/ds:SignedInfo/ds:Reference/ds:Transforms/ds:Transform", namespaceManager);
+    XmlNodeList digestMethods = doc.SelectNodes("//ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestMethod", namespaceManager);
 
     // Check if the elements are found
     if (transforms != null && digestMethods != null)
@@ -197,7 +197,7 @@ static bool validSignatureValueID(XmlDocument doc)
     XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
     namespaceManager.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
 
-    XmlNode signatureValue = doc.SelectSingleNode("//ds:SignatureValue", namespaceManager);
+    XmlNode signatureValue = doc.SelectSingleNode("//ds:Signature/ds:SignatureValue", namespaceManager);
 
     // check if signature value is valid
     if (signatureValue != null && signatureValue.Attributes["Id"] != null)
@@ -235,7 +235,7 @@ static bool validReferences(XmlDocument doc)
             if (referenceType.Value == types[0])
             {
                 String keyInfoId = reference.Attributes["URI"].Value;
-                XmlNode keyInfoNode = doc.SelectSingleNode("//ds:KeyInfo", namespaceManager);
+                XmlNode keyInfoNode = doc.SelectSingleNode("//ds:Signature/ds:KeyInfo", namespaceManager);
 
                 if (keyInfoNode == null)
                 {
@@ -263,7 +263,7 @@ static bool validReferences(XmlDocument doc)
             else if (referenceType.Value == types[1])
             {
                 String signaturePropertiesId = reference.Attributes["URI"].Value;
-                XmlNode signaturePropertiesNode = doc.SelectSingleNode("//ds:SignatureProperties", namespaceManager);
+                XmlNode signaturePropertiesNode = doc.SelectSingleNode("//ds:Signature/ds:Object/ds:SignatureProperties", namespaceManager);
 
                 if (signaturePropertiesNode == null)
                 {
@@ -294,7 +294,7 @@ static bool validReferences(XmlDocument doc)
 
                 XmlNamespaceManager xadesNamespaceManager = new XmlNamespaceManager(doc.NameTable);
                 xadesNamespaceManager.AddNamespace("xades", "http://uri.etsi.org/01903/v1.3.2#");
-                XmlNode signedPropertiesNode = doc.SelectSingleNode("//xades:SignedProperties", xadesNamespaceManager);
+                XmlNode signedPropertiesNode = reference.SelectSingleNode("//xades:SignedProperties", xadesNamespaceManager);
 
                 if (signedPropertiesNode == null)
                 {
@@ -322,7 +322,7 @@ static bool validReferences(XmlDocument doc)
             else if (referenceType.Value == types[3])
             {
                 String manifestId = reference.Attributes["URI"].Value;
-                XmlNode manifestNode = doc.SelectSingleNode("//ds:Manifest", namespaceManager);
+                XmlNode manifestNode = doc.SelectSingleNode("//ds:Signature/ds:Object/ds:Manifest", namespaceManager);
 
                 if (manifestNode == null)
                 {
@@ -368,7 +368,7 @@ static bool validKeyInfo(XmlDocument doc)
     XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
     namespaceManager.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
 
-    XmlNode keyInfoNode = doc.SelectSingleNode("//ds:KeyInfo", namespaceManager);
+    XmlNode keyInfoNode = doc.SelectSingleNode("//ds:Signature/ds:KeyInfo", namespaceManager);
 
     if (keyInfoNode == null)
     {
@@ -382,28 +382,28 @@ static bool validKeyInfo(XmlDocument doc)
         return false;
     }
 
-    XmlNode dataNode = doc.SelectSingleNode("//ds:KeyInfo/ds:X509Data", namespaceManager);
+    XmlNode dataNode = doc.SelectSingleNode("//ds:Signature/ds:KeyInfo/ds:X509Data", namespaceManager);
     if (dataNode == null)
     {
         Console.WriteLine("Element ds:KeyInfo neobsahuje element ds:X509Data");
         return false;
     }
 
-    XmlNode certificateNode = doc.SelectSingleNode("//ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceManager);
+    XmlNode certificateNode = doc.SelectSingleNode("//ds:Signature/ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceManager);
     if (certificateNode == null)
     {
         Console.WriteLine("Element ds:KeyInfo neobsahuje element ds:X509Certificate");
         return false;
     }
 
-    XmlNode issuerSerialNode = doc.SelectSingleNode("//ds:KeyInfo/ds:X509Data/ds:X509IssuerSerial", namespaceManager);
+    XmlNode issuerSerialNode = doc.SelectSingleNode("//ds:Signature/ds:KeyInfo/ds:X509Data/ds:X509IssuerSerial", namespaceManager);
     if (issuerSerialNode == null)
     {
         Console.WriteLine("Element ds:KeyInfo neobsahuje element ds:X509IssuerSerial");
         return false;
     }
 
-    XmlNode subjectNameNode = doc.SelectSingleNode("//ds:KeyInfo/ds:X509Data/ds:X509SubjectName", namespaceManager);
+    XmlNode subjectNameNode = doc.SelectSingleNode("//ds:Signature/ds:KeyInfo/ds:X509Data/ds:X509SubjectName", namespaceManager);
     if (subjectNameNode == null)
     {
         Console.WriteLine("Element ds:KeyInfo neobsahuje element ds:X509SubjectName");
@@ -419,7 +419,7 @@ static bool validSignatureProperties(XmlDocument doc)
     XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
     namespaceManager.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
 
-    XmlNode signaturePropertiesNode = doc.SelectSingleNode("//ds:SignatureProperties", namespaceManager);
+    XmlNode signaturePropertiesNode = doc.SelectSingleNode("//ds:Signature/ds:Object/ds:SignatureProperties", namespaceManager);
 
     if (signaturePropertiesNode == null)
     {
@@ -433,7 +433,7 @@ static bool validSignatureProperties(XmlDocument doc)
         return false;
     }
 
-    XmlNodeList signaturePropertyNodes = doc.SelectNodes("//ds:SignatureProperties/ds:SignatureProperty", namespaceManager);
+    XmlNodeList signaturePropertyNodes = doc.SelectNodes("//ds:Signature/ds:Object/ds:SignatureProperties/ds:SignatureProperty", namespaceManager);
     if (signaturePropertyNodes == null || signaturePropertyNodes.Count != 2)
     {
         Console.WriteLine("Element ds:SignatureProperties neobsahuje práve 2 elementy ds:SignatureProperty");
@@ -442,7 +442,7 @@ static bool validSignatureProperties(XmlDocument doc)
 
     XmlNamespaceManager xzepNamespaceManager = new XmlNamespaceManager(doc.NameTable);
     xzepNamespaceManager.AddNamespace("zxep", "http://www.ditec.sk/ep/signature_formats/xades_zep/v1.0");
-    XmlNode signatureVersion = doc.SelectSingleNode("//ds:SignatureProperties/ds:SignatureProperty/xzep:SignatureVersion", xzepNamespaceManager);
+    XmlNode signatureVersion = doc.SelectSingleNode("//xzep:SignatureVersion", xzepNamespaceManager);
     if (signatureVersion == null)
     {
         Console.WriteLine("Element ds:SignatureProperty neobsahuje element xzep:SignatureVersion");
@@ -457,7 +457,7 @@ static bool validSignatureProperties(XmlDocument doc)
         return false;
     }
 
-    XmlNode productInfos = doc.SelectSingleNode("//ds:SignatureProperties/ds:SignatureProperty/xzep:ProductInfos", xzepNamespaceManager);
+    XmlNode productInfos = doc.SelectSingleNode("//xzep:ProductInfos", xzepNamespaceManager);
     if (productInfos == null)
     {
         Console.WriteLine("Element ds:SignatureProperty neobsahuje element xzep:ProductInfos");
@@ -476,11 +476,11 @@ static bool validSignatureProperties(XmlDocument doc)
 
 static bool validManifests(XmlDocument doc)
 {
-    // select KeyInfo
+    // select manifests
     XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
     namespaceManager.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
 
-    XmlNodeList manifests = doc.SelectNodes("//ds:Manifest", namespaceManager);
+    XmlNodeList manifests = doc.SelectNodes("//ds:Signature/ds:Object/ds:Manifest", namespaceManager);
     if (manifests == null)
     {
         Console.WriteLine("XML súbor neobsahuje element ds:Manifest");
@@ -501,12 +501,20 @@ static bool validManifests(XmlDocument doc)
                                                 "http://uri.etsi.org/01903#SignedProperties",
                                                 "http://www.w3.org/2000/09/xmldsig#Manifest" };
 
-        XmlNode referenceNode = manifest.SelectSingleNode("ds:Reference", namespaceManager);
-        if (referenceNode == null)
+        XmlNodeList referenceNodes = manifest.SelectNodes("/ds:Reference", namespaceManager);
+
+        if (referenceNodes == null)
         {
             Console.WriteLine("Element ds:Manifest neobsahuje element ds:Reference");
             return false;
         }
+
+        if (referenceNodes.Count != 1)
+        {
+            Console.WriteLine("Element ds:Manifest obsahuje viac ako jeden element ds:Reference");
+            return false;
+        }
+        XmlNode referenceNode = referenceNodes[0];
 
         XmlNode referenceType = referenceNode.Attributes["Type"];
         if (referenceType == null || !types.Contains(referenceType.Value))
@@ -518,7 +526,7 @@ static bool validManifests(XmlDocument doc)
         List<string> transformAlgorithms = new List<string> {   "http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
                                                                 "http://www.w3.org/2000/09/xmldsig#base64"};
 
-        XmlNode transformNode = referenceNode.SelectSingleNode("//ds:Transform", namespaceManager);
+        XmlNode transformNode = referenceNode.SelectSingleNode("/ds:Transforms/ds:Transform", namespaceManager);
         if (transformNode == null)
         {
             Console.WriteLine("XML súbor neobsahuje element ds:Transform");
@@ -538,7 +546,7 @@ static bool validManifests(XmlDocument doc)
                                                              "http://www.w3.org/2001/04/xmldsig-more#sha384",
                                                              "http://www.w3.org/2001/04/xmlenc#sha512"};
 
-        XmlNode digestNode = referenceNode.SelectSingleNode("ds:DigestMethod", namespaceManager);
+        XmlNode digestNode = referenceNode.SelectSingleNode("/ds:DigestMethod", namespaceManager);
         if (digestNode == null)
         {
             Console.WriteLine("XML súbor neobsahuje element ds:DigestMethod");
@@ -551,13 +559,26 @@ static bool validManifests(XmlDocument doc)
             Console.WriteLine("Element ds:DigestMethod neobsahuje v atribúte Algorithm podporovanú hodnotu");
             return false;
         }
-
     }
 
     return true;
 }
 
+static bool validManifestReferences(XmlDocument doc)
+{
+    // select references
+    XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
+    namespaceManager.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
 
+    XmlNodeList manifests = doc.SelectNodes("//ds:Signature/ds:Object/ds:Manifest", namespaceManager);
+
+    foreach (XmlNode manifest in manifests)
+    {
+        XmlNode reference = manifest.SelectSingleNode("/ds:Reference");
+    }
+
+    return true;
+}
 
 
 //len kopia s upravami, nefunguje
@@ -778,6 +799,9 @@ static void main()
                 continue;
 
             if (!validManifests(doc))
+                continue;
+
+            if (!validManifestReferences(doc))
                 continue;
         }
     }
