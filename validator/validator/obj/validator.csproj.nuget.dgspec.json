@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadanie copy\\SIPVS\\validator\\validator\\validator.csproj": {}
+    "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\validator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadanie copy\\SIPVS\\validator\\validator\\validator.csproj": {
+    "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\validator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadanie copy\\SIPVS\\validator\\validator\\validator.csproj",
+        "projectUniqueName": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\validator.csproj",
         "projectName": "validator",
-        "projectPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadanie copy\\SIPVS\\validator\\validator\\validator.csproj",
-        "packagesPath": "C:\\Users\\Lenovo T470\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo T470\\Documents\\skola\\Ing\\SIPVS\\zadanie copy\\SIPVS\\validator\\validator\\obj\\",
+        "projectPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\validator.csproj",
+        "packagesPath": "C:\\Users\\Kristina Okasova\\.nuget\\packages\\",
+        "outputPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Lenovo T470\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kristina Okasova\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,14 +40,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "CouchbaseNetClient": {
-              "target": "Package",
-              "version": "[3.4.13, )"
-            },
-            "IKVM": {
-              "target": "Package",
-              "version": "[8.7.1, )"
-            },
             "Portable.BouncyCastle": {
               "target": "Package",
               "version": "[1.9.0, )"
@@ -76,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
