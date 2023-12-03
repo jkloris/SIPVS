@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\validator",
+    "\\validator\\validator"
   ],
-  "SelectedNode": "\\D:\\FIIT\\SIPVS\\Zadania\\Zadanie4",
+  "SelectedNode": "\\validator\\Priklady",
   "PreviewInSolutionExplorer": false
 }
