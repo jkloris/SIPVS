@@ -440,7 +440,9 @@ static bool validSignatureProperties(XmlDocument doc)
         return false;
     }
 
-    XmlNode signatureVersion = doc.SelectSingleNode("//ds:SignatureProperties/ds:SignatureProperty/xzep:SignatureVersion", namespaceManager);
+    XmlNamespaceManager xzepNamespaceManager = new XmlNamespaceManager(doc.NameTable);
+    xzepNamespaceManager.AddNamespace("zxep", "http://www.ditec.sk/ep/signature_formats/xades_zep/v1.0");
+    XmlNode signatureVersion = doc.SelectSingleNode("//ds:SignatureProperties/ds:SignatureProperty/xzep:SignatureVersion", xzepNamespaceManager);
     if (signatureVersion == null)
     {
         Console.WriteLine("Element ds:SignatureProperty neobsahuje element xzep:SignatureVersion");
@@ -455,7 +457,7 @@ static bool validSignatureProperties(XmlDocument doc)
         return false;
     }
 
-    XmlNode productInfos = doc.SelectSingleNode("//ds:SignatureProperties/ds:SignatureProperty/xzep:ProductInfos", namespaceManager);
+    XmlNode productInfos = doc.SelectSingleNode("//ds:SignatureProperties/ds:SignatureProperty/xzep:ProductInfos", xzepNamespaceManager);
     if (productInfos == null)
     {
         Console.WriteLine("Element ds:SignatureProperty neobsahuje element xzep:ProductInfos");
