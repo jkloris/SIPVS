@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "FwGAYeoISx1Cgjh2EzLxWV5faNp/qQqbKRgcNyMcWlw1LTdT3c2fMLJQjPxSstk6lSoNR3zhpNZJXqEPGaOwNg==",
+  "dgSpecHash": "kSu3fTcRdwev/oH3IXAjLRmW/KwRPTLnjUJPboZBezO5iThfkZymlZCXQUEc7sapapZPjpmNMFz9Fbgll/aGZw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\sipvs3.0\\SIPVS\\validator\\validator\\validator.csproj",
+  "projectFilePath": "C:\\Users\\Marek\\Documents\\GitHub\\SIPVS\\validator\\validator\\validator.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\katbe\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
-    "C:\\Users\\katbe\\.nuget\\packages\\system.formats.asn1\\8.0.0\\system.formats.asn1.8.0.0.nupkg.sha512",
-    "C:\\Users\\katbe\\.nuget\\packages\\system.security.cryptography.pkcs\\8.0.0\\system.security.cryptography.pkcs.8.0.0.nupkg.sha512",
-    "C:\\Users\\katbe\\.nuget\\packages\\system.security.cryptography.xml\\8.0.0\\system.security.cryptography.xml.8.0.0.nupkg.sha512"
+    "C:\\Users\\Marek\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
+    "C:\\Users\\Marek\\.nuget\\packages\\system.formats.asn1\\8.0.0\\system.formats.asn1.8.0.0.nupkg.sha512",
+    "C:\\Users\\Marek\\.nuget\\packages\\system.security.cryptography.pkcs\\8.0.0\\system.security.cryptography.pkcs.8.0.0.nupkg.sha512",
+    "C:\\Users\\Marek\\.nuget\\packages\\system.security.cryptography.xml\\8.0.0\\system.security.cryptography.xml.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

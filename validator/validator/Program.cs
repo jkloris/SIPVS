@@ -583,44 +583,31 @@ static bool validManifestReferences(XmlDocument doc)
 
 
 //len kopia s upravami, nefunguje
-static byte[] GetTimeStampSignatureCertificate( XmlDocument doc)
+static Org.BouncyCastle.X509.X509Certificate getTimeStampSignatureCertificate( XmlDocument doc)
 {
-    XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
-    namespaceManager.AddNamespace("xades", "http://www.w3.org/2000/09/xmldsig#");
+    Org.BouncyCastle.X509.X509Certificate signerCert = null;
 
-    string encapsulatedTimeStamp = "MIAGCSqGSIb3DQEHAqCAMIIHjQIBAzEPMA0GCWCGSAFlAwQCAQUAMIG4BgsqhkiG9w0BCRABBKCBqASBpTCBogIBAQYNKwYBBAGBuEgBATIDADAxMA0GCWCGSAFlAwQCAQUABCBGlgW7VPqAWzdTUU9UDklZFE/sByCdkCFKb1ARAfVQEgIDAmA1GBMyMDE0MDMyNTA3MDM1NS41NDVaMASAAgHCoDukOTA3MQswCQYDVQQGEwJTSzEUMBIGA1UECgwLRGl0ZWMsIGEucy4xEjAQBgNVBAMMCVRTIFNpZ25lcqCCBGgwggRkMIIDTKADAgECAgg4hJ4iaKgQ0TANBgkqhkiG9w0BAQsFADA1MQswCQYDVQQGEwJTSzEUMBIGA1UECgwLRGl0ZWMsIGEucy4xEDAOBgNVBAMMB0RUQyBUU0EwHhcNMTEwMjA5MTI1OTMxWhcNMzEwMjA5MTI1OTMxWjA3MQswCQYDVQQGEwJTSzEUMBIGA1UECgwLRGl0ZWMsIGEucy4xEjAQBgNVBAMMCVRTIFNpZ25lcjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJT5b78mgJPJr7UWLpKNgoWrjwR9gpdjT7Z2yTUcD5ZWRIjfKurN1Fy0SB4F5ED3P1FdHFmRzfXAI590i5Doz1XyoRjstYDouXKfTZ5YHbbpifzH3hbnz4XHDxy/EFH6TyTxO+QgjEhusHq5+1yJaefa4IvE9g5MA4lEeLtA8FmSuQpmRT/oS1vETrRT3WWI5+EgOr8d6U1xfTFG1mVcXrtuNYj1kVTtardfrfZ7HrPJYdwW5Vdlds0DwJgFoJjIi6I6nTtsN0+7ilreiioQaiTCLfD/JvGe+hfynbCKVn0REy7M6+PXeP+552j6l469WPXP+W/VJgQ28NDVXsxF9FsCAwEAAaOCAXQwggFwMIGMBgNVHSAEgYQwgYEwbgYNKwYBBAGBuEgBAQoDATBdMFsGCCsGAQUFBwICME8aTUNlcnRpZmlrYXQgamUgdnlkYW55IGFrbyBjZXJ0aWZpa2F0IHRlc3RvdmFjZWogY2VydGlmaWthY25laiBhdXRvcml0eSBUUyBEVEMuMA8GDSuBHpGZhAUAAAABAgIwDgYDVR0PAQH/BAQDAgbAMBYGA1UdJQEB/wQMMAoGCCsGAQUFBwMIMB0GA1UdDgQWBBTEJtrRA11IsdZh6evJR+Or12Ky2DAfBgNVHSMEGDAWgBTIMYpHRpQp7fm9n/PFHIEcxeBuozA1BgNVHR8ELjAsMCqgKKAmhiRodHRwOi8vZGV2LXBhdmxpay9jZXJ0Z2VuL1RzYUR0Yy5jcmwwQAYIKwYBBQUHAQEENDAyMDAGCCsGAQUFBzAChiRodHRwOi8vZGV2LXBhdmxpay9jZXJ0Z2VuL1RzYUR0Yy5jZXIwDQYJKoZIhvcNAQELBQADggEBAJblomPdbLJ2QnBTH4+RnVb5bx6Khz60BM400AjwbFdJUTNX/s/YqEJP1u58Ds8uGfr/YwbqsN/S/OU48vHdFZ2PbgvKhzAPjQeu9kv0vCrp8j7uCPdfPBa0Dlmw6bdvraQhzkXteKGb8NWPNZJ/mHy7GwFWKNKwOaiNxmAs++n0oyLIPfy6fXH/UfNPvmNPIt3NbrNa3KN3RsZQ6r+UAihnLds5orv8ORu+37XXlyei60iPtBLc8NSAycNH+HQd7GiAKKSrBx2CZdJgypEgNLvFUCieC0Njytd27ODeRciRpwO1YExkJ7hYI8oWxZKpcl/4HwKIuyFvZfPVg3f3dMYxggJOMIICSgIBATBBMDUxCzAJBgNVBAYTAlNLMRQwEgYDVQQKDAtEaXRlYywgYS5zLjEQMA4GA1UEAwwHRFRDIFRTQQIIOISeImioENEwDQYJYIZIAWUDBAIBBQCggd8wGgYJKoZIhvcNAQkDMQ0GCyqGSIb3DQEJEAEEMBwGCSqGSIb3DQEJBTEPFw0xNDAzMjUwNzA0MDFaMC8GCSqGSIb3DQEJBDEiBCBhT1EJzTgno4vQWZr+WSy79y84v1Bfk79Fv5ftIbljnDByBgsqhkiG9w0BCRACDDFjMGEwXzBdBBSlGMxS7jElSza/ppJkh2Cug9jSIzBFMDmkNzA1MQswCQYDVQQGEwJTSzEUMBIGA1UECgwLRGl0ZWMsIGEucy4xEDAOBgNVBAMMB0RUQyBUU0ECCDiEniJoqBDRMA0GCSqGSIb3DQEBCwUABIIBAFLZ2Q6J+uiqOESiRVRAnfT1Q24yQ1ZkJIyzUEgWGZWV/5ZiOwm80HSVODExq4VLxHlFT65ZhX68q3l42M8SoUJ6UbAB8UMRH2MH76MRpPlccm+WjmN6rei0NeU8XxyLHAQgO+CQ8L6vg6cLoMDNYV9vaQLT8B4uLxadVKBqPQ7D4qmf+seJPP4kDhFfrYRx7d9+j94mzis79yK0WxnkIuOoZOgj2inxk4zQEOXZoZVmAkC679wr7+Q865n0F7asftlSKtASSKhEu0GX32abFpIxZUwJSNikf7hZGwNdbDc8R0cACh9kNpZUfW42MGas+eSpIUOOM0VuzJOwIYQ5wqgAAAAA";
-//doc.SelectSingleNode("//xades:EncapsulatedTimeStamp", namespaceManager)?.InnerText;
-    byte[] tsResponse = Convert.FromBase64String(encapsulatedTimeStamp);
     try
     {
-        // Parse TimeStampResponse
-        TimeStampResponse tsResp = new TimeStampResponse(tsResponse);
-
         // Parse TimeStampToken
-        TimeStampToken token = new TimeStampToken(new CmsSignedData(tsResp.TimeStampToken.GetEncoded()));
+        TimeStampToken token = getTimestampToken(doc);
 
-        // Initialize variables
-        Org.BouncyCastle.X509.X509Certificate signerCert = null;
-        Org.BouncyCastle.X509.Store.IX509Store x509Certs = tsResp.TimeStampToken.GetCertificates("Collection");
+        Org.BouncyCastle.X509.Store.IX509Store x509Certs = token.GetCertificates("Collection");
         ArrayList certs = new ArrayList(x509Certs.GetMatches(null));
 
-        // Find the signing certificate in the collection
+        // nájdenie podpisového certifikátu tokenu v kolekcii
         foreach (Org.BouncyCastle.X509.X509Certificate cert in certs)
         {
             string cerIssuerName = cert.IssuerDN.ToString(true, new Hashtable());
             string signerIssuerName = token.SignerID.Issuer.ToString(true, new Hashtable());
 
-            // Check issuer name and serial number
-            if (cerIssuerName == signerIssuerName &&
-                cert.SerialNumber.Equals(token.SignerID.SerialNumber))
+            // kontrola issuer name a seriového čísla
+            if (cerIssuerName == signerIssuerName && cert.SerialNumber.Equals(token.SignerID.SerialNumber))
             {
                 signerCert = cert;
                 break;
             }
         }
-
-        // Return the encoded signing certificate
-        return signerCert?.GetEncoded();
     }
     catch (Exception ex)
     {
@@ -628,6 +615,8 @@ static byte[] GetTimeStampSignatureCertificate( XmlDocument doc)
         //this.errorMessage = "GetTimeStampSignatureCertificate: " + ex.Message;
         return null;
     }
+
+    return signerCert;
 }
 
 //zacal som ale nedokoncil
@@ -649,7 +638,7 @@ static bool ValidCore(XmlDocument doc)
 static TimeStampToken getTimestampToken(XmlDocument doc)
 {
 
-        TimeStampToken ts_token = null;
+    TimeStampToken ts_token = null;
 
     XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
     namespaceManager.AddNamespace("xades", "http://uri.etsi.org/01903/v1.3.2#");
@@ -913,6 +902,78 @@ static bool coreValidationDigestValue(XmlDocument doc)
     return true;
 }
 
+static X509Crl getSignCert(string url)
+{
+    try
+    {
+        using (System.Net.WebClient client = new System.Net.WebClient())
+        {
+            // Stiahnite CRL zo zadaného URL
+            byte[] crlBytes = client.DownloadData(url);
+            if (crlBytes != null)
+            {
+                X509CrlParser crlParser = new Org.BouncyCastle.X509.X509CrlParser();
+                X509Crl crl = crlParser.ReadCrl(new MemoryStream(crlBytes));
+                return crl;
+            }
+            else
+            {
+                Console.WriteLine("Nepodarilo sa stiahnuť CRL.");
+                return null;
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        return null;
+    }
+}
+
+static bool validSignCert(XmlDocument doc)
+{
+    XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
+    namespaceManager.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
+    namespaceManager.AddNamespace("xades", "http://uri.etsi.org/01903/v1.3.2#");
+
+    TimeStampToken token = getTimestampToken(doc);
+    Console.WriteLine(doc.SelectSingleNode(@"//ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceManager).InnerText);
+
+    // get signature cert
+    byte[] signatureCertificate = Convert.FromBase64String(doc.SelectSingleNode(@"//ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceManager).InnerText);
+    X509CertificateParser x509parser = new X509CertificateParser();
+    Org.BouncyCastle.X509.X509Certificate x509cert = x509parser.ReadCertificate(signatureCertificate);
+
+    try
+    {
+        Org.BouncyCastle.X509.X509Certificate signerCert = getTimeStampSignatureCertificate(doc);
+
+        //check x509 certtificate and GenTime
+        int compare1 = DateTime.Compare(x509cert.NotAfter, token.TimeStampInfo.TstInfo.GenTime.ToDateTime());
+        int compare2 = DateTime.Compare(token.TimeStampInfo.TstInfo.GenTime.ToDateTime(), x509cert.NotBefore);
+
+
+        if (compare1 < 0 || compare2 < 0)
+        {
+            Console.WriteLine("Neplatny certifikat voci casu t");
+            return false;
+        }
+
+        X509Crl crl = getSignCert("http://test.ditec.sk/DTCCACrl/DTCCACrl.crl");
+        if (crl.IsRevoked(x509cert))
+        {
+            Console.WriteLine("Neplatny certifikat voci crl");
+            return false;
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("error");
+        return false;
+    }
+    return true;
+}
+
 static void main()
 {
     String rootPath = "../../../../Priklady";
@@ -929,6 +990,8 @@ static void main()
             doc.Load(filePath);
             Console.WriteLine("Validácia súboru " + filePath);
 
+            if (!validSignCert(doc))
+                continue;
 
             if (!validEnvelope(doc))
                 continue;
@@ -965,6 +1028,8 @@ static void main()
 
             if (!validManifestReferences(doc))
                 continue;
+
+            
         }
     }
 }

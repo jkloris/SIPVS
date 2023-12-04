@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\sipvs3.0\\SIPVS\\validator\\validator\\validator.csproj": {}
+    "C:\\Users\\Marek\\Documents\\GitHub\\SIPVS\\validator\\validator\\validator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\sipvs3.0\\SIPVS\\validator\\validator\\validator.csproj": {
+    "C:\\Users\\Marek\\Documents\\GitHub\\SIPVS\\validator\\validator\\validator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\sipvs3.0\\SIPVS\\validator\\validator\\validator.csproj",
+        "projectUniqueName": "C:\\Users\\Marek\\Documents\\GitHub\\SIPVS\\validator\\validator\\validator.csproj",
         "projectName": "validator",
-        "projectPath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\sipvs3.0\\SIPVS\\validator\\validator\\validator.csproj",
-        "packagesPath": "C:\\Users\\katbe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\sipvs3.0\\SIPVS\\validator\\validator\\obj\\",
+        "projectPath": "C:\\Users\\Marek\\Documents\\GitHub\\SIPVS\\validator\\validator\\validator.csproj",
+        "packagesPath": "C:\\Users\\Marek\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Marek\\Documents\\GitHub\\SIPVS\\validator\\validator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\katbe\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Marek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -63,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\katbe\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
