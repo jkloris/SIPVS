@@ -6,6 +6,7 @@ using Org.BouncyCastle.Utilities.Encoders;
 using Org.BouncyCastle.Utilities.Zlib;
 using Org.BouncyCastle.X509;
 using System;
+using System.Text;
 using System.Collections;
 using System.Net;
 using System.Reflection.Metadata;
@@ -509,11 +510,6 @@ static bool validManifests(XmlDocument doc)
             return false;
         }
 
-        List<string> types = new List<string> { "http://www.w3.org/2000/09/xmldsig#Object",
-                                                "http://www.w3.org/2000/09/xmldsig#SignatureProperties",
-                                                "http://uri.etsi.org/01903#SignedProperties",
-                                                "http://www.w3.org/2000/09/xmldsig#Manifest" };
-
         XmlNodeList referenceNodes = manifest.SelectNodes("ds:Reference", namespaceManager);
 
         if (referenceNodes == null)
@@ -529,15 +525,12 @@ static bool validManifests(XmlDocument doc)
         }
         XmlNode referenceNode = referenceNodes[0];
 
-        XmlNode referenceType = referenceNode.Attributes["Type"];
-        if (referenceType == null || !types.Contains(referenceType.Value))
+        String referenceType = referenceNode.Attributes["Type"].Value;
+        if (referenceType == null || referenceType != "http://www.w3.org/2000/09/xmldsig#Object")
         {
             Console.WriteLine("Element ds:Reference neobsahuje v atribúte Type podporovanú hodnotu");
             return false;
         }
-
-        List<string> transformAlgorithms = new List<string> {   "http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
-                                                                "http://www.w3.org/2000/09/xmldsig#base64"};
 
         XmlNode transformNode = referenceNode.SelectSingleNode("ds:Transforms/ds:Transform", namespaceManager);
         if (transformNode == null)
@@ -545,6 +538,9 @@ static bool validManifests(XmlDocument doc)
             Console.WriteLine("Element ds:Reference neobsahuje element ds:Transform");
             return false;
         }
+
+        List<string> transformAlgorithms = new List<string> { "http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
+                                                              "http://www.w3.org/2000/09/xmldsig#base64"  };
 
         XmlNode transformAlgorithm = transformNode.Attributes["Algorithm"];
         if (transformAlgorithm == null || !transformAlgorithms.Contains(transformAlgorithm.Value))
@@ -587,7 +583,104 @@ static bool validManifestReferences(XmlDocument doc)
 
     foreach (XmlNode manifest in manifests)
     {
-        XmlNode reference = manifest.SelectSingleNode("/ds:Reference");
+        XmlNode reference = manifest.SelectSingleNode("ds:Reference", namespaceManager);
+        if (reference == null)
+        {
+            Console.WriteLine("Element ds:Manifest neobsahuje žiaden element ds:Reference");
+            return false;
+        }
+
+        XmlNode referenceURI = reference.Attributes["URI"];
+        if (referenceURI == null)
+        {
+            Console.WriteLine("Element ds:Reference neobsahuje atribút URI");
+            return false;
+        }
+
+        XmlNodeList objectNodes = doc.SelectNodes("//ds:Object", namespaceManager);
+        if (objectNodes == null)
+        {
+            Console.WriteLine("XML súbor neobsahuje žiaden element ds:Object");
+            return false;
+        }
+
+        Boolean objectFound = false;
+        foreach (XmlNode objectNode in objectNodes)
+        {
+            XmlNode objectId = objectNode.Attributes["Id"];
+            if (objectId == null)
+                continue;
+
+            if (referenceURI.Value.Substring(1) == objectId.Value)
+            {
+                objectFound = true;
+                //apply transformations
+                XmlNode transforms = reference.SelectSingleNode("ds:Transforms/ds:Transform", namespaceManager);
+                String transformAlgorithm = transforms.Attributes["Algorithm"].Value;
+
+                byte[] objectData = null;
+                if (transformAlgorithm == "http://www.w3.org/TR/2001/REC-xml-c14n-20010315")
+                {
+                    //kanonikalizátor
+                    XmlDsigC14NTransform transformation = new XmlDsigC14NTransform(false);
+                    XmlDocument pom = new XmlDocument();
+                    pom.LoadXml(objectNode.OuterXml);
+                    //kanonikalizácia ds:Object
+                    transformation.LoadInput(pom);
+                    objectData = ((MemoryStream)transformation.GetOutput()).ToArray();
+                }
+
+                if (transformAlgorithm == "http://www.w3.org/2000/09/xmldsig#base64")
+                {
+                    //base64 transformation
+                    objectData = Convert.FromBase64String(objectNode.InnerText);
+                }
+
+                //calculate digest
+                XmlNode digestMethod = reference.SelectSingleNode("ds:DigestMethod", namespaceManager);
+                String digestMethodAlgorithm = digestMethod.Attributes["Algorithm"].Value;
+
+                byte[] hashedValue = null;
+                switch (digestMethodAlgorithm)
+                {
+                    case "http://www.w3.org/2000/09/xmldsig#sha1":
+                        using (SHA1 sha1 = SHA1.Create())
+                            hashedValue = sha1.ComputeHash(objectData);
+                        break;
+                    //case "http://www.w3.org/2001/04/xmldsig-more#sha224":
+                    //    using (SHA224 sha224 = SHA224.Create())
+                    //        hashedValue = sha224.ComputeHash(objectData);
+                    //    break;
+                    case "http://www.w3.org/2001/04/xmlenc#sha256":
+                        using (SHA256 sha256 = SHA256.Create())
+                            hashedValue = sha256.ComputeHash(objectData);
+                        break;
+                    case "http://www.w3.org/2001/04/xmldsig-more#sha384":
+                        using (SHA384 sha384 = SHA384.Create())
+                            hashedValue = sha384.ComputeHash(objectData);
+                        break;
+                    case "http://www.w3.org/2001/04/xmlenc#sha512":
+                        using (SHA512 sha512 = SHA512.Create())
+                            hashedValue = sha512.ComputeHash(objectData);
+                        break;
+                }
+
+                StringBuilder hexStringBuilder = new StringBuilder();
+                foreach (byte b in hashedValue)
+                {
+                    hexStringBuilder.Append(b.ToString("x2"));
+                }
+                string hashedObject = hexStringBuilder.ToString();
+                //compare digest
+                string digestValue = reference.SelectSingleNode("ds:DigestValue", namespaceManager).InnerText;
+                
+                if (digestValue != hashedObject)
+                {
+                    Console.WriteLine("Hash hodnota objektu referencovaného z ds:Manifest sa nezhoduje s hodnotou v ds:DigestValue");
+                    return false;
+                }
+            }
+        }
     }
 
     return true;
@@ -1033,8 +1126,8 @@ static void main()
             if (!validManifests(doc))
                 continue;
 
-            //if (!validManifestReferences(doc))
-            //    continue;
+            if (!validManifestReferences(doc))
+                continue;
 
             if (!validSignCert(doc))
                 continue;
