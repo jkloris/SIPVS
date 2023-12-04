@@ -196,26 +196,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Kristina Okasova\\.nuget\\packages\\": {}
+    "C:\\Users\\katbe\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\validator.csproj",
+      "projectUniqueName": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\sipvs3.0\\SIPVS\\validator\\validator\\validator.csproj",
       "projectName": "validator",
-      "projectPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\validator.csproj",
-      "packagesPath": "C:\\Users\\Kristina Okasova\\.nuget\\packages\\",
-      "outputPath": "D:\\FIIT\\SIPVS\\Zadania\\Zadanie4\\validator\\validator\\obj\\",
+      "projectPath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\sipvs3.0\\SIPVS\\validator\\validator\\validator.csproj",
+      "packagesPath": "C:\\Users\\katbe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\katbe\\Desktop\\ING\\1.semester\\SIPVS\\sipvs3.0\\SIPVS\\validator\\validator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Kristina Okasova\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\katbe\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -259,7 +257,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\katbe\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
   }

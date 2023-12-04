@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Net;
 using System.Reflection.Metadata;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
@@ -755,7 +756,162 @@ static MemoryStream GetCrlData(string url)
 }
 
 
+//kanonikalizácia ds:SignedInfo a overenie hodnoty ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo
+static bool coreValidationSignedInfo(XmlDocument doc)
+{
+    
+    var namespaceId = new XmlNamespaceManager(doc.NameTable);
+    namespaceId.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
+    namespaceId.AddNamespace("xades", "http://uri.etsi.org/01903/v1.3.2#");
+    
+    XmlNode checkData = doc.SelectSingleNode(@"//ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceId);
+    if (checkData == null)
+    {
+        Console.WriteLine("kanonikalizácia ds:SignedInfo a overenie hodnoty ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo - Zlyhala");
+        return false;
+    }
 
+    byte[] certificateData = Convert.FromBase64String(doc.SelectSingleNode(@"//ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceId).InnerText);
+    byte[] signature = Convert.FromBase64String(doc.SelectSingleNode(@"//ds:SignatureValue", namespaceId).InnerText);
+    XmlNode signedInfoNnn = doc.SelectSingleNode(@"//ds:SignedInfo", namespaceId);
+    string digestAlg = doc.SelectSingleNode(@"//ds:SignedInfo/ds:SignatureMethod", namespaceId).Attributes.GetNamedItem("Algorithm").Value;
+    
+    //kanonikalizátor
+    XmlDsigC14NTransform transformation = new XmlDsigC14NTransform(false);
+    XmlDocument pom = new XmlDocument();
+    pom.LoadXml(signedInfoNnn.OuterXml);
+    //kanonikalizácia ds:SignedInfo
+    transformation.LoadInput(pom);
+    byte[] data = ((MemoryStream)transformation.GetOutput()).ToArray();
+    
+    try
+    {
+        SubjectPublicKeyInfo ski = X509CertificateStructure.GetInstance(Org.BouncyCastle.Asn1.Asn1Object.FromByteArray(certificateData)).SubjectPublicKeyInfo;
+       AsymmetricKeyParameter pk = Org.BouncyCastle.Security.PublicKeyFactory.CreateKey(ski);
+
+        string algStr = ""; //signature alg
+
+        //find digest
+        switch (digestAlg)
+        {
+            case "http://www.w3.org/2000/09/xmldsig#rsa-sha1":
+                algStr = "sha1";
+                break;
+            case "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256":
+                algStr = "sha256";
+                break;
+            case "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384":
+                algStr = "sha384";
+                break;
+            case "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512":
+                algStr = "sha512";
+                break;
+        }
+
+        //find encryption
+        switch (ski.AlgorithmID.ObjectID.Id)
+        {
+            case "1.2.840.10040.4.1": //dsa
+                algStr += "withdsa";
+                break;
+            case "1.2.840.113549.1.1.1": //rsa
+                algStr += "withrsa";
+                break;
+            default:
+                Console.WriteLine("kanonikalizácia ds:SignedInfo a overenie hodnoty ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo - Zlyhala");
+                return false;
+        }
+        
+        //overenie hodnoty
+        ISigner verif = Org.BouncyCastle.Security.SignerUtilities.GetSigner(algStr);
+        verif.Init(false, pk);
+        verif.BlockUpdate(data, 0, data.Length);
+        bool res = verif.VerifySignature(signature);
+
+        if (!res)
+        {
+            Console.WriteLine("kanonikalizácia ds:SignedInfo a overenie hodnoty ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo - Zlyhala");
+        }
+
+        return res;
+
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("kanonikalizácia ds:SignedInfo a overenie hodnoty ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo - Zlyhala");
+        return false;
+    }
+}
+
+static bool coreValidationDigestValue(XmlDocument doc) 
+{
+    
+    var namespaceId = new XmlNamespaceManager(doc.NameTable);
+    namespaceId.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
+    namespaceId.AddNamespace("xades", "http://uri.etsi.org/01903/v1.3.2#");
+    
+    //dereferencovanie URI, kanonikalizácia referencovaných ds:Manifest elementov a overenie hodnôt odtlačkov ds:DigestValue,
+    XmlNode signedInfoN = doc.SelectSingleNode(@"//ds:SignedInfo", namespaceId);
+    XmlNodeList referenceElements = signedInfoN.SelectNodes(@"//ds:Reference", namespaceId);
+    
+    foreach (XmlNode reference in referenceElements)
+    {
+        String referenceURI = reference.Attributes.GetNamedItem("URI").Value;
+        referenceURI = referenceURI.Substring(1);
+        XmlNode digestMethod = reference.SelectSingleNode("ds:DigestMethod", namespaceId);
+        String digestMethodAlgorithm = digestMethod.Attributes.GetNamedItem("Algorithm").Value;
+        string dsDigestValue = reference.SelectSingleNode("ds:DigestValue", namespaceId).InnerText;
+        
+        if (referenceURI.StartsWith("ManifestObject"))
+        {
+            //dereferencovanie URI
+            string manifestXML = doc.SelectSingleNode("//ds:Manifest[@Id='" + referenceURI + "']", namespaceId).OuterXml;
+            MemoryStream sManifest = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(manifestXML));
+            
+            //kankonikalizácia referencovaných ds:Manifest elementov
+            XmlDsigC14NTransform transformation = new XmlDsigC14NTransform();
+            transformation.LoadInput(sManifest);
+            
+            HashAlgorithm hash = null;
+
+            switch (digestMethodAlgorithm)
+            {
+                case "http://www.w3.org/2001/04/xmlenc#sha512":
+                    hash = new SHA512Managed();
+                    break;
+                case "http://www.w3.org/2000/09/xmldsig#sha1":
+                    hash = new SHA1Managed();
+                    break;
+                case "http://www.w3.org/2001/04/xmlenc#sha256":
+                    hash = new SHA256Managed();
+                    break;
+                case "http://www.w3.org/2001/04/xmldsig-more#sha384":
+                    hash = new SHA384Managed();
+                    break;
+                
+            }
+
+            if (hash == null)
+            {
+                Console.WriteLine("dereferencovanie URI, kanonikalizácia referencovaných ds:Manifest elementov a overenie hodnôt odtlačkov ds:DigestValue - zlyhalo");
+                return false;
+            }
+
+            byte[] digest = transformation.GetDigestedOutput(hash);
+            string result = Convert.ToBase64String(digest);
+
+            //overenie hodnôt odtlačkov ds:DigestValue
+            if (!result.Equals(dsDigestValue))
+            {
+                Console.WriteLine("dereferencovanie URI, kanonikalizácia referencovaných ds:Manifest elementov a overenie hodnôt odtlačkov ds:DigestValue zlyhalo");
+                return false;
+            }
+            
+        }
+    }
+    
+    return true;
+}
 
 static void main()
 {
@@ -781,6 +937,12 @@ static void main()
                 continue;
 
             if (!validTransform(doc))
+                continue;
+            
+            if (!coreValidationDigestValue(doc))
+                continue;
+            
+            if (!coreValidationSignedInfo(doc))
                 continue;
 
             if (!validSignatureID(doc))
