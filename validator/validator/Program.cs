@@ -251,7 +251,7 @@ static bool validReferences(XmlDocument doc)
                     return false;
                 }
 
-                if (keyInfoNodeId.Value != keyInfoId)
+                if (keyInfoNodeId.Value != keyInfoId.Substring(1))
                 {
                     Console.WriteLine("Atribút Id elementu ds:KeyInfo sa nezhoduje s atribútom URI elementu ds:SignedInfo");
                     return false;
@@ -279,7 +279,7 @@ static bool validReferences(XmlDocument doc)
                     return false;
                 }
 
-                if (signaturePropertiesNodeId.Value != signaturePropertiesId)
+                if (signaturePropertiesNodeId.Value != signaturePropertiesId.Substring(1))
                 {
                     Console.WriteLine("Atribút Id elementu ds:signatureProperties sa nezhoduje s atribútom URI elementu ds:SignedInfo");
                     return false;
@@ -310,7 +310,7 @@ static bool validReferences(XmlDocument doc)
                     return false;
                 }
 
-                if (signedPropertiesNodeId.Value != signedPropertiesId)
+                if (signedPropertiesNodeId.Value != signedPropertiesId.Substring(1))
                 {
                     Console.WriteLine("Atribút Id elementu xades:SignedProperties sa nezhoduje s atribútom URI elementu ds:SignedInfo");
                     return false;
@@ -323,22 +323,38 @@ static bool validReferences(XmlDocument doc)
             else if (referenceType.Value == types[3])
             {
                 String manifestId = reference.Attributes["URI"].Value;
-                XmlNode manifestNode = doc.SelectSingleNode("//ds:Signature/ds:Object/ds:Manifest", namespaceManager);
+                XmlNodeList manifestNodes = doc.SelectNodes("//ds:Signature/ds:Object/ds:Manifest", namespaceManager);
 
-                if (manifestNode == null)
+                if (manifestNodes == null)
                 {
                     Console.WriteLine("XML súbor neobsahuje element ds:Manifest");
                     return false;
                 }
+                Boolean foundManifest = false;
 
-                XmlNode manifestNodeId = manifestNode.Attributes["Id"];
-                if (manifestNodeId == null)
+                foreach (XmlNode manifestNode in manifestNodes)
                 {
-                    Console.WriteLine("Element ds:Manifest neobsahuje atribút Id");
-                    return false;
+                    if (manifestNode == null)
+                    {
+                        Console.WriteLine("XML súbor neobsahuje element ds:Manifest");
+                        return false;
+                    }
+
+                    XmlNode manifestNodeId = manifestNode.Attributes["Id"];
+                    if (manifestNodeId == null)
+                    {
+                        Console.WriteLine("Element ds:Manifest neobsahuje atribút Id");
+                        return false;
+                    }
+
+                    if (manifestNodeId.Value == manifestId.Substring(1))
+                    {
+                        foundManifest = true;
+                        break;
+                    }
                 }
 
-                if (manifestNodeId.Value != manifestId)
+                if (!foundManifest)
                 {
                     Console.WriteLine("Atribút Id elementu ds:Manifest sa nezhoduje s atribútom URI elementu ds:SignedInfo");
                     return false;
@@ -441,35 +457,31 @@ static bool validSignatureProperties(XmlDocument doc)
         return false;
     }
 
-    XmlNamespaceManager xzepNamespaceManager = new XmlNamespaceManager(doc.NameTable);
-    xzepNamespaceManager.AddNamespace("zxep", "http://www.ditec.sk/ep/signature_formats/xades_zep/v1.0");
-    XmlNode signatureVersion = doc.SelectSingleNode("//xzep:SignatureVersion", xzepNamespaceManager);
-    if (signatureVersion == null)
+    foreach (XmlNode signaturePropertyNode in signaturePropertyNodes)
     {
-        Console.WriteLine("Element ds:SignatureProperty neobsahuje element xzep:SignatureVersion");
-        return false;
-    }
+        XmlNamespaceManager xzepNamespaceManager = new XmlNamespaceManager(doc.NameTable);
+        xzepNamespaceManager.AddNamespace("xzep", "http://www.ditec.sk/ep/signature_formats/xades_zep/v1.0");
+        XmlNode signatureVersion = doc.SelectSingleNode("//xzep:SignatureVersion", xzepNamespaceManager);
+        if (signatureVersion == null)
+        {
+            Console.WriteLine("Element ds:SignatureProperty neobsahuje element xzep:SignatureVersion");
+            return false;
+        }
 
-    String signatureId = doc.SelectSingleNode("//ds:Signature", namespaceManager).Attributes["Id"].Value;
-    XmlNode signatureVersionTarget = signatureVersion.Attributes["Target"];
-    if (signatureVersionTarget == null || signatureVersionTarget.Value != signatureId)
-    {
-        Console.WriteLine("Atribút Target elementu xzep:SignatureVersion nie je zhodný s atribútom Id elementu ds:Signature");
-        return false;
-    }
+        XmlNode productInfos = doc.SelectSingleNode("//xzep:ProductInfos", xzepNamespaceManager);
+        if (productInfos == null)
+        {
+            Console.WriteLine("Element ds:SignatureProperty neobsahuje element xzep:ProductInfos");
+            return false;
+        }
 
-    XmlNode productInfos = doc.SelectSingleNode("//xzep:ProductInfos", xzepNamespaceManager);
-    if (productInfos == null)
-    {
-        Console.WriteLine("Element ds:SignatureProperty neobsahuje element xzep:ProductInfos");
-        return false;
-    }
-
-    XmlNode productInfosTarget = productInfos.Attributes["Target"];
-    if (productInfosTarget == null || productInfosTarget.Value != signatureId)
-    {
-        Console.WriteLine("Atribút Target elementu xzep:ProductInfos nie je zhodný s atribútom Id elementu ds:Signature");
-        return false;
+        XmlNode signaturePropertyTarget = signaturePropertyNode.Attributes["Target"];
+        String signatureId = doc.SelectSingleNode("//ds:Signature", namespaceManager).Attributes["Id"].Value;
+        if (signaturePropertyTarget == null || signaturePropertyTarget.Value.Substring(1) != signatureId)
+        {
+            Console.WriteLine("Atribút Target elementu ds:SignatureProperty nie je zhodný s atribútom Id elementu ds:Signature");
+            return false;
+        }
     }
 
     return true;
@@ -502,7 +514,7 @@ static bool validManifests(XmlDocument doc)
                                                 "http://uri.etsi.org/01903#SignedProperties",
                                                 "http://www.w3.org/2000/09/xmldsig#Manifest" };
 
-        XmlNodeList referenceNodes = manifest.SelectNodes("/ds:Reference", namespaceManager);
+        XmlNodeList referenceNodes = manifest.SelectNodes("ds:Reference", namespaceManager);
 
         if (referenceNodes == null)
         {
@@ -527,10 +539,10 @@ static bool validManifests(XmlDocument doc)
         List<string> transformAlgorithms = new List<string> {   "http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
                                                                 "http://www.w3.org/2000/09/xmldsig#base64"};
 
-        XmlNode transformNode = referenceNode.SelectSingleNode("/ds:Transforms/ds:Transform", namespaceManager);
+        XmlNode transformNode = referenceNode.SelectSingleNode("ds:Transforms/ds:Transform", namespaceManager);
         if (transformNode == null)
         {
-            Console.WriteLine("XML súbor neobsahuje element ds:Transform");
+            Console.WriteLine("Element ds:Reference neobsahuje element ds:Transform");
             return false;
         }
 
@@ -547,10 +559,10 @@ static bool validManifests(XmlDocument doc)
                                                              "http://www.w3.org/2001/04/xmldsig-more#sha384",
                                                              "http://www.w3.org/2001/04/xmlenc#sha512"};
 
-        XmlNode digestNode = referenceNode.SelectSingleNode("/ds:DigestMethod", namespaceManager);
+        XmlNode digestNode = referenceNode.SelectSingleNode("ds:DigestMethod", namespaceManager);
         if (digestNode == null)
         {
-            Console.WriteLine("XML súbor neobsahuje element ds:DigestMethod");
+            Console.WriteLine("Element ds:Reference neobsahuje element ds:DigestMethod");
             return false;
         }
 
@@ -752,13 +764,11 @@ static bool coreValidationSignedInfo(XmlDocument doc)
     var namespaceId = new XmlNamespaceManager(doc.NameTable);
     namespaceId.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
     namespaceId.AddNamespace("xades", "http://uri.etsi.org/01903/v1.3.2#");
+
     
     XmlNode checkData = doc.SelectSingleNode(@"//ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceId);
     if (checkData == null)
-    {
-        Console.WriteLine("kanonikalizácia ds:SignedInfo a overenie hodnoty ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo - Zlyhala");
-        return false;
-    }
+        return true;
 
     byte[] certificateData = Convert.FromBase64String(doc.SelectSingleNode(@"//ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceId).InnerText);
     byte[] signature = Convert.FromBase64String(doc.SelectSingleNode(@"//ds:SignatureValue", namespaceId).InnerText);
@@ -807,7 +817,7 @@ static bool coreValidationSignedInfo(XmlDocument doc)
                 algStr += "withrsa";
                 break;
             default:
-                Console.WriteLine("kanonikalizácia ds:SignedInfo a overenie hodnoty ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo - Zlyhala");
+                Console.WriteLine("Verejný kľúč uložený v ds:X509Certificate nemá podporovaný formát.");
                 return false;
         }
         
@@ -819,7 +829,7 @@ static bool coreValidationSignedInfo(XmlDocument doc)
 
         if (!res)
         {
-            Console.WriteLine("kanonikalizácia ds:SignedInfo a overenie hodnoty ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo - Zlyhala");
+            Console.WriteLine("Core validation zlyhala. Nepodarilo sa nájsť zhodu medzi ds:SignedInfo a ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo");
         }
 
         return res;
@@ -827,7 +837,7 @@ static bool coreValidationSignedInfo(XmlDocument doc)
     }
     catch (Exception ex)
     {
-        Console.WriteLine("kanonikalizácia ds:SignedInfo a overenie hodnoty ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo - Zlyhala");
+        Console.WriteLine("Nepodarilo sa získať pripojený podpisový certifikát.");
         return false;
     }
 }
@@ -882,7 +892,7 @@ static bool coreValidationDigestValue(XmlDocument doc)
 
             if (hash == null)
             {
-                Console.WriteLine("dereferencovanie URI, kanonikalizácia referencovaných ds:Manifest elementov a overenie hodnôt odtlačkov ds:DigestValue - zlyhalo");
+                Console.WriteLine("Element ds:DigestMethod neobsahuje podporovaný algoritmus.");
                 return false;
             }
 
@@ -892,7 +902,7 @@ static bool coreValidationDigestValue(XmlDocument doc)
             //overenie hodnôt odtlačkov ds:DigestValue
             if (!result.Equals(dsDigestValue))
             {
-                Console.WriteLine("dereferencovanie URI, kanonikalizácia referencovaných ds:Manifest elementov a overenie hodnôt odtlačkov ds:DigestValue zlyhalo");
+                Console.WriteLine("Core validation zlyhala. Hodnota ds:DigestValue a hash hodnota elementu ds:Manifest sú rozdielne.");
                 return false;
             }
             
@@ -937,7 +947,7 @@ static bool validSignCert(XmlDocument doc)
     namespaceManager.AddNamespace("xades", "http://uri.etsi.org/01903/v1.3.2#");
 
     TimeStampToken token = getTimestampToken(doc);
-    Console.WriteLine(doc.SelectSingleNode(@"//ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceManager).InnerText);
+    // Console.WriteLine(doc.SelectSingleNode(@"//ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceManager).InnerText);
 
     // get signature cert
     byte[] signatureCertificate = Convert.FromBase64String(doc.SelectSingleNode(@"//ds:KeyInfo/ds:X509Data/ds:X509Certificate", namespaceManager).InnerText);
@@ -988,10 +998,7 @@ static void main()
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(filePath);
-            Console.WriteLine("Validácia súboru " + filePath);
-
-            if (!validSignCert(doc))
-                continue;
+            Console.WriteLine("\nValidácia súboru " + filePath);
 
             if (!validEnvelope(doc))
                 continue;
@@ -1026,10 +1033,11 @@ static void main()
             if (!validManifests(doc))
                 continue;
 
-            if (!validManifestReferences(doc))
-                continue;
+            //if (!validManifestReferences(doc))
+            //    continue;
 
-            
+            if (!validSignCert(doc))
+                continue;
         }
     }
 }
