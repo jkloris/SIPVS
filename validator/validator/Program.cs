@@ -970,7 +970,7 @@ static bool validSignCert(XmlDocument doc)
         }
 
         X509Crl crl = getSignCert("http://test.ditec.sk/DTCCACrl/DTCCACrl.crl");
-        if (crl.IsRevoked(x509cert))
+        if (crl != null && crl.IsRevoked(x509cert))
         {
             Console.WriteLine("Neplatný podpis z dôvodu predčasného zrušenia certifikátu.");
             return false;
