@@ -965,14 +965,14 @@ static bool validSignCert(XmlDocument doc)
 
         if (compare1 < 0 || compare2 < 0)
         {
-            Console.WriteLine("Neplatny certifikat voci casu t");
+            Console.WriteLine("Neplatný certifikát v čase podpisovania.");
             return false;
         }
 
         X509Crl crl = getSignCert("http://test.ditec.sk/DTCCACrl/DTCCACrl.crl");
         if (crl.IsRevoked(x509cert))
         {
-            Console.WriteLine("Neplatny certifikat voci crl");
+            Console.WriteLine("Neplatný podpis z dôvodu predčasného zrušenia certifikátu.");
             return false;
         }
     }
