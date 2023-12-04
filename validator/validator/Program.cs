@@ -15,6 +15,12 @@ using System.Security.Cryptography.Xml;
 using System.Xml;
 using System.Xml.XPath;
 using System.Security.Cryptography.X509Certificates;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using String = System.String;
+using Org.BouncyCastle.Asn1.Tsp;
+using Org.BouncyCastle.Security;
+using Org.BouncyCastle.Utilities;
+using System.Xml.Linq;
 
 static bool validEnvelope(XmlDocument doc)
 {
@@ -330,7 +336,7 @@ static bool validReferences(XmlDocument doc)
                     Console.WriteLine("XML súbor neobsahuje element ds:Manifest");
                     return false;
                 }
-                Boolean foundManifest = false;
+                bool foundManifest = false;
 
                 foreach (XmlNode manifestNode in manifestNodes)
                 {
@@ -587,7 +593,7 @@ static bool validManifestReferences(XmlDocument doc)
 
     foreach (XmlNode manifest in manifests)
     {
-        XmlNode reference = manifest.SelectSingleNode("/ds:Reference");
+        XmlNode reference = manifest.SelectSingleNode("//ds:Reference");
     }
 
     return true;
@@ -650,7 +656,7 @@ static bool ValidCore(XmlDocument doc)
 static TimeStampToken getTimestampToken(XmlDocument doc)
 {
 
-    TimeStampToken ts_token = null;
+    TimeStampToken tsToken = null;
 
     XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
     namespaceManager.AddNamespace("xades", "http://uri.etsi.org/01903/v1.3.2#");
@@ -667,13 +673,13 @@ static TimeStampToken getTimestampToken(XmlDocument doc)
     {
         byte[] timestampBytes = Base64.Decode(timestamp.InnerText);
         CmsSignedData cmsSignedData = new CmsSignedData(timestampBytes);
-        ts_token = new TimeStampToken(cmsSignedData);
+        tsToken = new TimeStampToken(cmsSignedData);
     }
     catch
     {
         return null;
     }
-    return ts_token;
+    return tsToken;
 }
 
 //crl pre podpisovy certifikat:
@@ -681,80 +687,39 @@ static TimeStampToken getTimestampToken(XmlDocument doc)
 
 //crl pre certifikat casovej peciatky:
 //http://test.ditec.sk/TSAServer/crl/dtctsa.crl
-//neviem
-/*static X509Crl GetCrl()
-{
 
-    var crlData = GetCrlData("http://test.ditec.sk/DTCCACrl/DTCCACrl.crl").ToArray();
-
-    if (crlData == null)
-    {
-        return null;
-    }
-    try
-    {
-        CertificateFactory certFactory = CertificateFactory.getInstance("X.509", "BC");
-
-
-        var crl = (X509CRL)certFactory.generateCRL(crlData);
-    }
-    catch
-    {
-        return null;
-    }
-
-
-    return crl;
-}
-//neviem
-static X509Crl GetCrl2()
-{
-    var crlData = GetCrlData("http://test.monex.sk/DTCCACrl/DTCCACrl.crl");
-
-    if (crlData == null)
-    {
-        return null;
-    }
-
-    X509Certificate2Collection collection = new X509Certificate2Collection();
-    collection.Import(crlData);
-
-    X509Crl crl = new X509Crl(collection[0]);
-
-    return crl;
-}*/
 
 //podla mna to spravi co ma, ale nepaci sa mu type vystupu
-static MemoryStream GetCrlData(string url)
-{
-    Uri urlHandler = null;
-    try
-    {
-        urlHandler = new Uri(url);
-    }
-    catch (UriFormatException e)
-    {
-        Console.WriteLine($"Failed to create URL from {url}: {e.Message}");
-        return null;
-    }
+//static MemoryStream GetCrlData(string url)
+//{
+//    Uri urlHandler = null;
+//    try
+//    {
+//        urlHandler = new Uri(url);
+//    }
+//    catch (UriFormatException e)
+//    {
+//        Console.WriteLine($"Failed to create URL from {url}: {e.Message}");
+//        return null;
+//    }
 
-    MemoryStream baos = new MemoryStream();
-    using (WebClient webClient = new WebClient())
-    {
-        try
-        {
-            byte[] byteChunk = webClient.DownloadData(urlHandler);
-            baos.Write(byteChunk, 0, byteChunk.Length);
-        }
-        catch (WebException e)
-        {
-            Console.WriteLine($"Failed while reading bytes from {urlHandler.AbsoluteUri}: {e.Message}");
-            return null;
-        }
-    }
+//    MemoryStream baos = new MemoryStream();
+//    using (WebClient webClient = new WebClient())
+//    {
+//        try
+//        {
+//            byte[] byteChunk = webClient.DownloadData(urlHandler);
+//            baos.Write(byteChunk, 0, byteChunk.Length);
+//        }
+//        catch (WebException e)
+//        {
+//            Console.WriteLine($"Failed while reading bytes from {urlHandler.AbsoluteUri}: {e.Message}");
+//            return null;
+//        }
+//    }
 
-    return baos;
-}
+//    return baos;
+//}
 
 
 //kanonikalizácia ds:SignedInfo a overenie hodnoty ds:SignatureValue pomocou pripojeného podpisového certifikátu v ds:KeyInfo
@@ -984,9 +949,93 @@ static bool validSignCert(XmlDocument doc)
     return true;
 }
 
+static bool validTSCerfificate(XmlDocument doc)
+{
+    TimeStampToken token = getTimestampToken(doc);
+    X509Crl crl = getSignCert("http://test.ditec.sk/TSAServer/crl/dtctsa.crl");
+    Org.BouncyCastle.X509.X509Certificate signer = null;
+
+    var certHolders = token.GetCertificates("Collection");
+    var certs = new System.Collections.ArrayList(certHolders.GetMatches(null));
+
+    var serialNumToken = token.SignerID.SerialNumber;
+    var issuerToken = token.SignerID.Issuer;
+
+    foreach (Org.BouncyCastle.X509.X509Certificate certHolder in certs)
+    {
+        if (certHolder.SerialNumber.Equals(serialNumToken) && certHolder.IssuerDN.Equals(issuerToken))
+        {
+            signer = certHolder;
+            break;
+        }
+    }
+
+    if (signer == null)
+    {
+        Console.WriteLine("Nenašiel sa certifikát časovej pečiatky");
+        return false;
+     }
+
+    if (!signer.IsValidNow)
+    {
+        Console.WriteLine("Podpisový certifikát časovej pečiatky nie je platný voči času UtcNow.");
+        return false;
+    }
+
+   if (crl.GetRevokedCertificate(signer.SerialNumber) != null)
+   {
+        Console.WriteLine("Podpisový certifikát časovej pečiatky nie je platný voči platnému poslednému CRL.");
+        return false;
+    }
+
+    return true;
+}
+
+static bool validMessageImprint(XmlDocument doc)
+{
+    TimeStampToken token = getTimestampToken(doc);
+    byte[] messageImprint = token.TimeStampInfo.GetMessageImprintDigest();
+    //string hashAlgorithmID = token.TimeStampInfo.HashAlgorithm.Algorithm.Id;
+
+    XmlNode signatureValueNode = null;
+
+    XmlNamespaceManager namespaceManager = new XmlNamespaceManager(doc.NameTable);
+    namespaceManager.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
+
+       
+    signatureValueNode = doc.SelectSingleNode("//ds:Signature/ds:SignatureValue", namespaceManager);
+
+
+    if (signatureValueNode == null)
+    {
+        Console.WriteLine("Element ds:SignatureValue sa nenasiel.");
+        return false;
+    }
+
+    byte[] signatureValue = Convert.FromBase64String(signatureValueNode.InnerText);
+
+
+    using (var messageDigest = SHA256.Create())
+    {
+        if (messageDigest == null)
+        {
+            Console.WriteLine("Nepodporovaný algoritmus.");
+            return false;
+        }
+
+        if (!messageImprint.SequenceEqual(messageDigest.ComputeHash(signatureValue)))
+        {
+            Console.WriteLine("MessageImprint z časovej pečiatky sa nezhoduje voči podpisu ds:SignatureValue.");
+            return false;
+        }
+    }
+
+    return true;
+}
+
 static void main()
 {
-    String rootPath = "../../../../Priklady";
+    string rootPath = "../../../../Priklady";
 
     if (Directory.Exists(rootPath))
     {
@@ -999,6 +1048,8 @@ static void main()
             XmlDocument doc = new XmlDocument();
             doc.Load(filePath);
             Console.WriteLine("\nValidácia súboru " + filePath);
+        
+
 
             if (!validEnvelope(doc))
                 continue;
@@ -1033,11 +1084,18 @@ static void main()
             if (!validManifests(doc))
                 continue;
 
-            //if (!validManifestReferences(doc))
-            //    continue;
+            if (!validManifestReferences(doc))
+                continue;
 
+           
+            if (!validMessageImprint(doc))
+                continue;
+            if (!validTSCerfificate(doc))
+                continue;
             if (!validSignCert(doc))
                 continue;
+            Console.WriteLine("Valídny document");
+
         }
     }
 }
