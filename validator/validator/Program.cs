@@ -1180,14 +1180,16 @@ static void main()
             if (!validManifestReferences(doc))
                 continue;
 
-           
             if (!validMessageImprint(doc))
                 continue;
+
             if (!validTSCerfificate(doc))
                 continue;
+
             if (!validSignCert(doc))
                 continue;
-            Console.WriteLine("Valídny document");
+
+            Console.WriteLine("Validný dokument");
 
         }
     }
