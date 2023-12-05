@@ -22,6 +22,7 @@ using Org.BouncyCastle.Asn1.Tsp;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using System.Xml.Linq;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 static bool validEnvelope(XmlDocument doc)
 {
@@ -610,7 +611,7 @@ static bool validManifestReferences(XmlDocument doc)
             return false;
         }
 
-        Boolean objectFound = false;
+        bool objectFound = false;
         foreach (XmlNode objectNode in objectNodes)
         {
             XmlNode objectId = objectNode.Attributes["Id"];
@@ -630,7 +631,7 @@ static bool validManifestReferences(XmlDocument doc)
                     //kanonikalizátor
                     XmlDsigC14NTransform transformation = new XmlDsigC14NTransform(false);
                     XmlDocument pom = new XmlDocument();
-                    pom.LoadXml(objectNode.OuterXml);
+                    pom.LoadXml(objectNode.InnerXml);
                     //kanonikalizácia ds:Object
                     transformation.LoadInput(pom);
                     objectData = ((MemoryStream)transformation.GetOutput()).ToArray();
@@ -644,8 +645,8 @@ static bool validManifestReferences(XmlDocument doc)
 
                 //calculate digest
                 XmlNode digestMethod = reference.SelectSingleNode("ds:DigestMethod", namespaceManager);
-                String digestMethodAlgorithm = digestMethod.Attributes["Algorithm"].Value;
-
+                string digestMethodAlgorithm = digestMethod.Attributes["Algorithm"].Value;
+                
                 byte[] hashedValue = null;
                 switch (digestMethodAlgorithm)
                 {
@@ -671,15 +672,10 @@ static bool validManifestReferences(XmlDocument doc)
                         break;
                 }
 
-                StringBuilder hexStringBuilder = new StringBuilder();
-                foreach (byte b in hashedValue)
-                {
-                    hexStringBuilder.Append(b.ToString("x2"));
-                }
-                string hashedObject = hexStringBuilder.ToString();
+                string hashedObject = Convert.ToBase64String(hashedValue);
                 //compare digest
                 string digestValue = reference.SelectSingleNode("ds:DigestValue", namespaceManager).InnerText;
-                
+
                 if (digestValue != hashedObject)
                 {
                     Console.WriteLine("Hash hodnota objektu referencovaného z ds:Manifest sa nezhoduje s hodnotou v ds:DigestValue");
